@@ -97,7 +97,7 @@
 							<div class="button_set">
 								<a class="btn_cart">장바구니 담기</a> <a class="btn_buy">바로구매</a>
 						        <sec:authorize access="!isAuthenticated()">
-						        <a href="#" class="ws_icon" onclick="location.href='/shard/login'">
+						        <a href="#" class="ws_icon" onclick="gologin()">
 						         <span>
 						 	       <i id="heartIcon" class="fa-solid fa-heart" style="color:#fff;"></i>
 						         </span>
