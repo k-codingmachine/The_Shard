@@ -1,0 +1,38 @@
+ul > li {
+  margin: 16px;
+  display: inline-block;
+}
+
+.cate {
+   list-style: none;
+   padding: 0;
+   display: flex;
+}
+
+.cate li {
+    margin-right: 10px;
+}
+
+.cate li a {
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    font-weight: 700; 
+    
+}
+
+.cate li a img {
+    width: 100%; /* 이미지의 최대 너비를 100%로 설정하여 동일한 크기로 조정 */
+   height: auto; /* 이미지의 높이 자동 조정 */
+   border-radius: 5px; /* 이미지 모서리에 둥근 경계선 추가 (선택사항) */
+}
+.title{
+	text-align: center;
+}
+
+#searchForm {
+    display: flex;
+    align-items: center;
+}
