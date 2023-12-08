@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,8 +43,42 @@ public class ItemInfoController {
 	// 상품 정보 페이지
 	@GetMapping("/itemInfo")
 	public String itemInfo(Model model, @RequestParam("itemNum") int itemNum, @RequestParam("pageNum") int pageNum) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        System.out.println("emial >>" + email);
+		// Authentication 객체는 anonymousUser문자열을 반환한다.
+        if(!email.equals("anonymousUser")) {
+			System.out.println("회원일때");
+		    int result = itemService.wishListSelect(itemNum, email);
+		    if(result == 1) {
+				   System.out.println("result == 1");
+			List<ItemReplyVO> getReplyList = replyService.getReplyList(itemNum);
+			model.addAttribute("getReplyList", getReplyList);
 
-		// 고객 상품 리뷰 `리스트`
+			// 고객 상품 리뷰 `페이징`
+			PageVO vo = new PageVO(pageNum, replyService.totalCount(itemNum));
+			model.addAttribute("itemInfo", itemService.getItem(itemNum));
+			model.addAttribute("list", replyService.replyList(vo));
+			model.addAttribute("page", vo);
+			model.addAttribute("itemNum", itemNum);
+			model.addAttribute("result", result);
+			return "item/itemInfo";
+		   }else {
+			   System.out.println("result == 0");
+			List<ItemReplyVO> getReplyList = replyService.getReplyList(itemNum);
+			model.addAttribute("getReplyList", getReplyList);
+
+			// 고객 상품 리뷰 `페이징`
+			PageVO vo = new PageVO(pageNum, replyService.totalCount(itemNum));
+			model.addAttribute("itemInfo", itemService.getItem(itemNum));
+			model.addAttribute("list", replyService.replyList(vo));
+			model.addAttribute("page", vo);
+			model.addAttribute("itemNum", itemNum);
+			model.addAttribute("result", result);   
+			return "item/itemInfo";
+		   }
+        }else if(email.equals("anonymousUser")){
+			System.out.println("비회원일때");
 		List<ItemReplyVO> getReplyList = replyService.getReplyList(itemNum);
 		model.addAttribute("getReplyList", getReplyList);
 
@@ -52,9 +88,10 @@ public class ItemInfoController {
 		model.addAttribute("list", replyService.replyList(vo));
 		model.addAttribute("page", vo);
 		model.addAttribute("itemNum", itemNum);
-
-		return "item/itemInfo"; // 이건 제발 주석처리 하지 말자
-	}
+		return "item/itemInfo";
+        }
+        return "item/itemInfo";
+}
 
 	@GetMapping("/insertReply")
 	public void insert() {
@@ -133,30 +170,29 @@ public class ItemInfoController {
 	
 	
 	
-	// wishlist
-	@GetMapping("/wishlist")
-	@PreAuthorize("isAuthenticated()")
-	@ResponseBody
-	public ResponseEntity<String> wishList(
-	    @RequestParam("itemNum") int itemNum,
-	    @RequestParam("email") String email) {
+   // wishlist
+   @GetMapping("/wishlist")
+   @PreAuthorize("isAuthenticated()")
+   @ResponseBody
+   public ResponseEntity<String> wishList(
+       @RequestParam("itemNum") int itemNum,
+       @RequestParam("email") String email) {
 
-	    System.out.println("위시리스트");
-	    int result = itemService.wishListSelect(itemNum, email);
+       System.out.println("위시리스트");
+       int result = itemService.wishListSelect(itemNum, email);
 
-	    if (result == 0) {
-	        System.out.println("위시리스트에 추가");
-	        itemService.wishListInsert(itemNum, email);
-	        return ResponseEntity.status(HttpStatus.OK).body("ADD");
-	        
-	    } else {
-	        System.out.println("위시리스트 제거");
-	        itemService.wishListDelete(itemNum, email);
-	        return ResponseEntity.status(HttpStatus.OK).body("REMOVE");
-	   
-	    }
-	}
-
+       if (result == 0) {
+           System.out.println("위시리스트에 추가");
+           itemService.wishListInsert(itemNum, email);
+           return ResponseEntity.status(HttpStatus.OK).body("ADD");
+        
+       } else {
+           System.out.println("위시리스트 제거");
+           itemService.wishListDelete(itemNum, email);
+           return ResponseEntity.status(HttpStatus.OK).body("REMOVE");
+      
+       }
+   }
 	 
 	 
 

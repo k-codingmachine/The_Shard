@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mysql.cj.util.StringUtils;
 import com.shard.domain.ItemVO;
-import com.shard.domain.PageResult;
 import com.shard.domain.PageVO;
 import com.shard.domain.SortType;
 import com.shard.service.ItemSearchService;
