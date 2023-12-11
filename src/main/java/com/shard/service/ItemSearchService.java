@@ -6,12 +6,14 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.shard.domain.ItemVO;
+import com.shard.domain.MainPageVO;
 import com.shard.domain.SearchPageVO;
 
 public interface ItemSearchService {
 
 	public List<ItemVO> Search(SearchPageVO SearchPageVO);
 	public List<ItemVO> AllLatest(SearchPageVO vo);
+	public List<ItemVO> AllMainLatest(MainPageVO vo); //메인페이지용
 	public List<ItemVO> RPrice(SearchPageVO vo);
 	public List<ItemVO> HPrice(SearchPageVO vo);
 	public List<ItemVO> getCategoryHPrice(int categoryNum, SearchPageVO vo);

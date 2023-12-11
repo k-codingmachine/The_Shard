@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.shard.domain.ItemVO;
+import com.shard.domain.MainPageVO;
 import com.shard.domain.SearchPageVO;
 
 import lombok.extern.log4j.Log4j;
@@ -34,6 +35,12 @@ public class ItemSearchMapperTests {
 	public void testGetSearchAllLatest(){
 		SearchPageVO vo = new SearchPageVO(1,mapper.getTotalCount());
 		mapper.getSearchAllLatest(vo).forEach(list -> log.info(list));
+	}
+	
+	@Test
+	public void testGetAllLatest(){
+		MainPageVO vo = new MainPageVO(1,16);
+		mapper.getAllLatest(vo).forEach(list -> log.info(list));
 	}
 
 	@Test

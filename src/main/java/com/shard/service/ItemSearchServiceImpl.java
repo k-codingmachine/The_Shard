@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shard.domain.ItemVO;
+import com.shard.domain.MainPageVO;
 import com.shard.domain.SearchPageVO;
 import com.shard.mapper.ItemSearchMapper;
 
@@ -24,6 +25,11 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	@Override
 	public List<ItemVO> AllLatest(SearchPageVO vo) {
 		return mapper.getSearchAllLatest(vo);
+	}
+	
+	@Override
+	public List<ItemVO> AllMainLatest(MainPageVO vo) {
+		return mapper.getAllLatest(vo);
 	}
 
 

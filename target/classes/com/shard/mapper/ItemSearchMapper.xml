@@ -15,6 +15,13 @@
 		order by itemRegDate desc
 		limit #{start}, #{amount}
 	</select>
+	
+	<select id="getAllLatest" resultType="com.shard.domain.ItemVO">
+		select * from item
+		order by itemRegDate desc
+		limit 0, 16
+	</select>
+	
 
 	<select id="getHPrice" resultType="com.shard.domain.ItemVO">
 		select * from item order by

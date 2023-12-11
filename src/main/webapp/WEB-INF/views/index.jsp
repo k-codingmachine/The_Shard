@@ -26,7 +26,7 @@
 
 	<jsp:include page="header.jsp"></jsp:include>
 				<div class="title">
-				<h2>category</h2>
+				<h2>Category</h2>
 				</div>
   <div class="categoryList">
 	<ul class="cate">
