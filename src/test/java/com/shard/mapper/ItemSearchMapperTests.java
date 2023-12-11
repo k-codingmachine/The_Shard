@@ -12,12 +12,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.shard.domain.ItemVO;
-import com.shard.domain.PageVO;
+import com.shard.domain.SearchPageVO;
 
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 @Log4j
 public class ItemSearchMapperTests {
 
@@ -26,45 +26,45 @@ public class ItemSearchMapperTests {
 	
 	@Test
 	public void testGetSearchAll(){
-		PageVO vo = new PageVO(1,mapper.getTotalCount());
+		SearchPageVO vo = new SearchPageVO(1,mapper.getTotalCount());
 		mapper.getSearchAll(vo).forEach(list -> log.info(list));
 	}
 	
 	@Test
 	public void testGetSearchAllLatest(){
-		PageVO vo = new PageVO(1,mapper.getTotalCount());
+		SearchPageVO vo = new SearchPageVO(1,mapper.getTotalCount());
 		mapper.getSearchAllLatest(vo).forEach(list -> log.info(list));
 	}
 
 	@Test
 	public void testGetHPrice(){
-		PageVO vo = new PageVO(1,mapper.getTotalCount());
+		SearchPageVO vo = new SearchPageVO(1,mapper.getTotalCount());
 		mapper.getHPrice(vo).forEach(list -> log.info(list));
 	}
 	@Test
 	public void testGetRPrice(){
-		PageVO vo = new PageVO(1,mapper.getTotalCount());
+		SearchPageVO vo = new SearchPageVO(1,mapper.getTotalCount());
 		mapper.getRPrice(vo).forEach(list -> log.info(list));	
 	}
 	
 	@Test
 	public void testGetCategoryHPrice(){
 		int categoryNum = 2;
-		PageVO vo = new PageVO(1,mapper.getCategoryCount(categoryNum));
+		SearchPageVO vo = new SearchPageVO(1,mapper.getCategoryCount(categoryNum));
 		mapper.getCategoryHPrice(categoryNum, vo).forEach(list -> log.info(list));	
 	}
 	
 	@Test
 	public void testGetCategoryRPrice(){
 		int categoryNum = 2;
-		PageVO vo = new PageVO(1,mapper.getCategoryCount(categoryNum));
+		SearchPageVO vo = new SearchPageVO(1,mapper.getCategoryCount(categoryNum));
 		mapper.getCategoryRPrice(categoryNum, vo).forEach(list -> log.info(list));	
 	}
 	
 	@Test
 	public void testGetCategoryLatest(){
 		int categoryNum = 2;
-		PageVO vo = new PageVO(1,mapper.getCategoryCount(categoryNum));
+		SearchPageVO vo = new SearchPageVO(1,mapper.getCategoryCount(categoryNum));
 		mapper.getCategoryLatest(categoryNum, vo).forEach(list -> log.info(list));
 	}
 	
@@ -72,41 +72,41 @@ public class ItemSearchMapperTests {
 	@Test
 	public void testGetColorHPrice(){
 		String color = "블랙";
-		PageVO vo = new PageVO(1,mapper.getColorCount(color));
+		SearchPageVO vo = new SearchPageVO(1,mapper.getColorCount(color));
 		mapper.getColorHPrice(color, vo).forEach(list -> log.info(list));	
 	}
 	@Test
 	public void testGetColorRPrice(){
 		String color = "블랙";
-		PageVO vo = new PageVO(1,mapper.getColorCount(color));
+		SearchPageVO vo = new SearchPageVO(1,mapper.getColorCount(color));
 		mapper.getColorRPrice(color, vo).forEach(list -> log.info(list));	
 	}
 	
 	@Test
 	public void testGetColorLatest(){
 		String color = "블랙";
-		PageVO vo = new PageVO(1,mapper.getColorCount(color));
+		SearchPageVO vo = new SearchPageVO(1,mapper.getColorCount(color));
 		mapper.getColorLatest(color, vo).forEach(list -> log.info(list));	
 	}
 	
 	@Test
 	public void testGetItemHPrice(){
 		String itemName = "맨투맨";
-		PageVO vo = new PageVO(1,mapper.getItemNameCount(itemName));
+		SearchPageVO vo = new SearchPageVO(1,mapper.getItemNameCount(itemName));
 		mapper.getItemHPrice(itemName, vo).forEach(list -> log.info(list));	
 	}
 	
 	@Test
 	public void testGetItemRPrice(){
 		String itemName = "맨투맨";
-		PageVO vo = new PageVO(1,mapper.getItemNameCount(itemName));
+		SearchPageVO vo = new SearchPageVO(1,mapper.getItemNameCount(itemName));
 		mapper.getItemRPrice(itemName, vo).forEach(list -> log.info(list));	
 	}
 	
 	@Test
 	public void testGetItemLatest(){
 		String itemName = "맨투맨";
-		PageVO vo = new PageVO(1,mapper.getItemNameCount(itemName));
+		SearchPageVO vo = new SearchPageVO(1,mapper.getItemNameCount(itemName));
 		mapper.getItemLatest(itemName, vo).forEach(list -> log.info(list));
 	}
 	
@@ -114,7 +114,7 @@ public class ItemSearchMapperTests {
 	public void testGetItemColorHPrice(){
 		String itemName = "맨투맨";
 		String color = "블랙";
-		PageVO vo = new PageVO(1,mapper.getItemColorCount(itemName, color));
+		SearchPageVO vo = new SearchPageVO(1,mapper.getItemColorCount(itemName, color));
 		mapper.getItemColorHPrice(itemName, color, vo).forEach(list -> log.info(list));	
 	}
 	
@@ -123,7 +123,7 @@ public class ItemSearchMapperTests {
 	public void testGetItemColorRPrice(){
 		String itemName = "맨투맨";
 		String color = "블랙";
-		PageVO vo = new PageVO(1,mapper.getItemColorCount(itemName, color));
+		SearchPageVO vo = new SearchPageVO(1,mapper.getItemColorCount(itemName, color));
 		mapper.getItemColorRPrice(itemName, color, vo).forEach(list -> log.info(list));	
 	}
 	
@@ -131,7 +131,7 @@ public class ItemSearchMapperTests {
 	public void testGetItemColorLastest(){
 		String itemName = "맨투맨";
 		String color = "블랙";
-		PageVO vo = new PageVO(1,mapper.getItemColorCount(itemName, color));
+		SearchPageVO vo = new SearchPageVO(1,mapper.getItemColorCount(itemName, color));
 		mapper.getItemColorLatest(itemName, color, vo).forEach(list -> log.info(list));	
 	}
 	
@@ -145,7 +145,7 @@ public class ItemSearchMapperTests {
   	@Test
     public void testGetColorWithPaging() {
         String color = "레드"; 
-        PageVO vo = new PageVO(1, mapper.getColorCount(color));
+        SearchPageVO vo = new SearchPageVO(1, mapper.getColorCount(color));
         mapper.ColorWithPaging(color, vo).forEach(list -> log.info(list));
     }
 	
@@ -158,9 +158,9 @@ public class ItemSearchMapperTests {
   	@Test
     public void testGetCategoryWithPaging() {
         int categoryNum = 2; 
-        PageVO vo = new PageVO(1, mapper.getCategoryCount(categoryNum));
+        SearchPageVO vo = new SearchPageVO(1, mapper.getCategoryCount(categoryNum));
 		/*
-		 * List<ItemVO> itemList = mapper.getCategory(pageVO); itemList.forEach(item ->
+		 * List<ItemVO> itemList = mapper.getCategory(SearchPageVO); itemList.forEach(item ->
 		 * log.info(item));
 		 */
         mapper.CategoryWithPaging(categoryNum, vo).forEach(list -> log.info(list));
@@ -174,14 +174,14 @@ public class ItemSearchMapperTests {
   	@Test
     public void testGetItemSearchWithPaging() {
         String itemName = "후드"; 
-        PageVO vo = new PageVO(1, mapper.getItemNameCount(itemName));
+        SearchPageVO vo = new SearchPageVO(1, mapper.getItemNameCount(itemName));
         mapper.getItemSearchWithPaging(itemName, vo).forEach(list -> log.info(list));
     }
   	
   
 	  @Test 
 	  public void testGetSearchAllWithPaging(){
-		  PageVO vo = new PageVO(1,mapper.getTotalCount());
+		  SearchPageVO vo = new SearchPageVO(1,mapper.getTotalCount());
 		  mapper.getSearchAllWithPaging(vo).forEach(list -> log.info(list)); 
 	  }
 	  
@@ -189,7 +189,7 @@ public class ItemSearchMapperTests {
 	  public void testGetgetItemColorWithPaging(){
 		  String itemName = "후드";
 		  String color = "블랙";
-		  PageVO vo = new PageVO(1,mapper.getItemColorCount(itemName, color));
+		  SearchPageVO vo = new SearchPageVO(1,mapper.getItemColorCount(itemName, color));
 		  mapper.getItemColorWithPaging(itemName, color, vo).forEach(list -> log.info(list)); 
 	  }
 	 

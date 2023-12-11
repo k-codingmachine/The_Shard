@@ -1,17 +1,9 @@
 package com.shard.service;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.shard.domain.PageVO;
@@ -60,6 +52,8 @@ public class QnAServiceImpl implements QnAService {
 		if (success != null) {
 			vo.setReplyImg("/img/"+success);
 			mapper.qnaInsert(vo);
+			int lastId = mapper.lastId();
+			mapper.inquiryNumUpadte(lastId);
 			result = 1; // 파일 업로드 성공! and 데이터베이스에 저장 성공
 		}
 
@@ -67,8 +61,8 @@ public class QnAServiceImpl implements QnAService {
 	}
 
 	@Override
-	public int delete(String email) {
-		return mapper.delete(email);
+	public int delete(int replyNum) {
+		return mapper.delete(replyNum);
 	}
 
 	@Override
@@ -93,8 +87,8 @@ public class QnAServiceImpl implements QnAService {
 	}
 
 	@Override
-	public List<QnAVO> getQnAList(String email) {
-		return mapper.getQnAList(email);
+	public List<QnAVO> getQnAList(int replyNum) {
+		return mapper.getQnAList(replyNum);
 	}
 
 	@Override
@@ -107,5 +101,8 @@ public class QnAServiceImpl implements QnAService {
 		return mapper.qnaInsert(vo);
 	}
 
-
+	@Override
+	public int qnaReInsert(QnAVO vo) {
+		return mapper.qnaReInsert(vo);
+	}
 }

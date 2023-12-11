@@ -15,7 +15,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.shard.domain.ItemVO;
-import com.shard.domain.WishListVO;
 import com.shard.mapper.ItemMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -37,56 +36,56 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public int itemInsert(ItemVO vo, List<MultipartFile> files) {
-	    int result = 0;
+		int result = 0;
 
-	    // 파일이 비어 있는지 확인
-	    if (files.isEmpty()) {
-	        result = -1; // 파일 업로드 성공! and 데이터베이스에 저장 성공
-	        return result;
-	    }
+		// 파일이 비어 있는지 확인
+		if (files.isEmpty()) {
+			result = -1; // 파일 업로드 성공! and 데이터베이스에 저장 성공
+			return result;
+		}
 
-	    // 파일 크기 제한, 파일 확장자 확인
-	    for (MultipartFile file : files) {
-	        if (file.getSize() > 5 * 1024 * 1024) { // 5MB 제한 (설정 가능)
-	            result = -1; // 파일 크기는 5MB를 초과할 수 없습니다.
-	            return result;
-	        }
+		// 파일 크기 제한, 파일 확장자 확인
+		for (MultipartFile file : files) {
+			if (file.getSize() > 5 * 1024 * 1024) { // 5MB 제한 (설정 가능)
+				result = -1; // 파일 크기는 5MB를 초과할 수 없습니다.
+				return result;
+			}
 
-	        String fileName = file.getOriginalFilename();
-	        if (!fileName.endsWith(".jpg") && !fileName.endsWith(".jpeg") && !fileName.endsWith(".png")) {
-	            result = -2; // 지원하지 않는 파일 형식입니다. (.jpg, .jpeg, .png만 허용)
-	            return result;
-	        }
-	    }
+			String fileName = file.getOriginalFilename();
+			if (!fileName.endsWith(".jpg") && !fileName.endsWith(".jpeg") && !fileName.endsWith(".png")) {
+				result = -2; // 지원하지 않는 파일 형식입니다. (.jpg, .jpeg, .png만 허용)
+				return result;
+			}
+		}
 
-	    // 파일 저장 및 vo에 저장
-	    String mainImg = null;
-	    List<String> subImgs = new ArrayList<>();
+		// 파일 저장 및 vo에 저장
+		String mainImg = null;
+		List<String> subImgs = new ArrayList<>();
 
-	    for (int i = 0; i < files.size(); i++) {
-	        MultipartFile file = files.get(i);
-	        String success = storeFile(file);
+		for (int i = 0; i < files.size(); i++) {
+			MultipartFile file = files.get(i);
+			String success = storeFile(file);
 
-	        if (i == 0) {
-	            mainImg = success;
-	        } else {
-	            subImgs.add(success);
-	        }
-	    }
+			if (i == 0) {
+				mainImg = success;
+			} else {
+				subImgs.add(success);
+			}
+		}
 
-	    // vo에 파일 경로 설정
-	    vo.setMainImg("/img/"+mainImg);
-	    if (!subImgs.isEmpty()) {
-	        vo.setSubImg1("/img/"+subImgs.get(0));
-	        vo.setSubImg2("/img/"+subImgs.get(1));
-	        vo.setSubImg3("/img/"+subImgs.get(2));
-	        vo.setSubImg4("/img/"+subImgs.get(3));
-	    }
+		// vo에 파일 경로 설정
+		vo.setMainImg("/img/" + mainImg);
+		if (!subImgs.isEmpty()) {
+			vo.setSubImg1("/img/" + subImgs.get(0));
+			vo.setSubImg2("/img/" + subImgs.get(1));
+			vo.setSubImg3("/img/" + subImgs.get(2));
+			vo.setSubImg4("/img/" + subImgs.get(3));
+		}
 
-	    mapper.itemInsert(vo);
+		mapper.itemInsert(vo);
 
-	    result = 1; // 파일 업로드 성공! and 데이터베이스에 저장 성공
-	    return result;
+		result = 1; // 파일 업로드 성공! and 데이터베이스에 저장 성공
+		return result;
 	}
 
 	public String storeFile(MultipartFile file) {
@@ -131,56 +130,61 @@ public class ItemServiceImpl implements ItemService {
 	public int itemUpdate(ItemVO vo, List<MultipartFile> files) {
 		int result = 0;
 
-	    // 파일이 비어 있는지 확인
-	    if (files.isEmpty()) {
-	        result = -1; // 파일 업로드 성공! and 데이터베이스에 저장 성공
-	        return result;
-	    }
+		// 파일이 비어 있는지 확인
+		if (files.isEmpty()) {
+			result = -1; // 파일 업로드 성공! and 데이터베이스에 저장 성공
+			return result;
+		}
 
-	    // 파일 크기 제한, 파일 확장자 확인
-	    for (MultipartFile file : files) {
-	        if (file.getSize() > 5 * 1024 * 1024) { // 5MB 제한 (설정 가능)
-	            result = -1; // 파일 크기는 5MB를 초과할 수 없습니다.
-	            return result;
-	        }
+		// 파일 크기 제한, 파일 확장자 확인
+		for (MultipartFile file : files) {
+			if (file.getSize() > 5 * 1024 * 1024) { // 5MB 제한 (설정 가능)
+				result = -1; // 파일 크기는 5MB를 초과할 수 없습니다.
+				return result;
+			}
 
-	        String fileName = file.getOriginalFilename();
-	        if (!fileName.endsWith(".jpg") && !fileName.endsWith(".jpeg") && !fileName.endsWith(".png")) {
-	            result = -2; // 지원하지 않는 파일 형식입니다. (.jpg, .jpeg, .png만 허용)
-	            return result;
-	        }
-	    }
+			String fileName = file.getOriginalFilename();
+			if (!fileName.endsWith(".jpg") && !fileName.endsWith(".jpeg") && !fileName.endsWith(".png")) {
+				result = -2; // 지원하지 않는 파일 형식입니다. (.jpg, .jpeg, .png만 허용)
+				return result;
+			}
+		}
 
-	    // 파일 저장 및 vo에 저장
-	    String mainImg = null;
-	    List<String> subImgs = new ArrayList<>();
+		// 파일 저장 및 vo에 저장
+		String mainImg = null;
+		List<String> subImgs = new ArrayList<>();
 
-	    for (int i = 0; i < files.size(); i++) {
-	        MultipartFile file = files.get(i);
-	        String success = storeFile(file);
+		for (int i = 0; i < files.size(); i++) {
+			MultipartFile file = files.get(i);
+			String success = storeFile(file);
 
-	        if (i == 0) {
-	            mainImg = success;
-	        } else {
-	            subImgs.add(success);
-	        }
-	    }
+			if (i == 0) {
+				mainImg = success;
+			} else {
+				subImgs.add(success);
+			}
+		}
 
-	    // vo에 파일 경로 설정
-	    vo.setMainImg("/img/"+mainImg);
-	    if (!subImgs.isEmpty()) {
-	        vo.setSubImg1("/img/"+subImgs.get(0));
-	        vo.setSubImg2("/img/"+subImgs.get(1));
-	        vo.setSubImg3("/img/"+subImgs.get(2));
-	        vo.setSubImg4("/img/"+subImgs.get(3));
-	    }
+		// vo에 파일 경로 설정
+		vo.setMainImg("/img/" + mainImg);
+		if (!subImgs.isEmpty()) {
+			vo.setSubImg1("/img/" + subImgs.get(0));
+			vo.setSubImg2("/img/" + subImgs.get(1));
+			vo.setSubImg3("/img/" + subImgs.get(2));
+			vo.setSubImg4("/img/" + subImgs.get(3));
+		}
 
-	    mapper.itemUpdate(vo);
+		mapper.itemUpdate(vo);
 
-	    result = 1; // 파일 업로드 성공! and 데이터베이스에 저장 성공
-	    return result;
+		result = 1; // 파일 업로드 성공! and 데이터베이스에 저장 성공
+		return result;
 	}
-	
+
+	@Override
+	public String getItemNameByItemNum(int itemNum) {
+		return mapper.getItemNameByItemNum(itemNum);
+	}
+
 	@Override
 	public int wishListSelect(int itemNum, String email) {
 	 return	mapper.wishListSelect(itemNum, email);

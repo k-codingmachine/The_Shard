@@ -57,5 +57,7 @@ public interface AdminMapper {
 	
 	public int noticeCount();
 	
-	public int statisticsCount(int orderId);
+	public int statisticsCount(@Param("orderId")int orderId);
+	
+
 }

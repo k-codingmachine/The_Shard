@@ -31,9 +31,8 @@ public class QnAEnswerServiceImpl implements QnAEnswerService{
 	}
 
 	@Override
-	public List<QnAEnswerVO> enswerGetList(String email) {
-		// TODO Auto-generated method stub
-		return mapper.enswerGetList(email);
+	public List<QnAEnswerVO> enswerGetList(int replyNum) {
+		return mapper.enswerGetList(replyNum);
 	}
 
 

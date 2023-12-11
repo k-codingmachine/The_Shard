@@ -29,27 +29,27 @@ public class QnAMapperTest {
 	
 	@Test
 	public void qnaInsertTest() {
-		for(int i = 51; i <= 100; i++) {
 			QnAVO vo = QnAVO.builder()
-						.replyTitle("문의합니다")
-						.replyContent("문의합니다다다"+i)
+						.replyTitle("문의합니다22222")
+						.replyContent("문의합니다다다22222")
 						.replyPwd("1234")
-						.email("user"+ i +"@user.com")
+						.email("user1@admin.com")
 						.replyCategory("배송")
 						.build();
 			mapper.qnaInsert(vo);
-		}
+			int lastId = mapper.lastId();
+			mapper.inquiryNumUpadte(lastId);
 	}
 	
-	@Test
-	public void listGetTest() {
-		mapper.getQnAList("user1@admin.com").forEach(list -> log.info(list));
-		
-		mapper2.enswerGetList("user1@admin.com").forEach(result -> log.info(result));
-	}
-	
-	@Test
-	public void deleteQnATest() {
-		log.info(mapper.delete("user60@user.com"));
-	}
+//	@Test
+//	public void listGetTest() {
+//		mapper.getQnAList("user1@admin.com").forEach(list -> log.info(list));
+//		
+//		mapper2.enswerGetList("user1@admin.com").forEach(result -> log.info(result));
+//	}
+//	
+//	@Test
+//	public void deleteQnATest() {
+//		log.info(mapper.delete("user60@user.com"));
+//	}
 }

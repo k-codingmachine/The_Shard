@@ -60,8 +60,9 @@ public class QnAController {
 
 	@GetMapping("/Reinsert")
 	@PreAuthorize("isAuthenticated()")
-	public void Reinsert(@RequestParam("pageNum") int pageNum, Model model) {
+	public void Reinsert(@RequestParam("pageNum") int pageNum, @RequestParam("inquiryNum") int inquiryNum, Model model) {
 		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("inquiryNum", inquiryNum);
 	}
 
 	@GetMapping("/check") // 문의를 보기 위한 비밀번호 체크
@@ -78,8 +79,6 @@ public class QnAController {
 		if (result == 1) {
 			rttr.addAttribute("pageNum", pageNum);
 			rttr.addAttribute("replyNum", vo.getReplyNum());
-			rttr.addAttribute("email", vo.getEmail());
-			System.out.println(vo.getEmail());
 			url = "redirect:/qna/get";
 		} else {
 			rttr.addFlashAttribute("result", 0);
@@ -92,13 +91,14 @@ public class QnAController {
 	}
 
 	@GetMapping("/get")
-	@PreAuthorize("hasRole('ROLE_ADMIN') or principal.member.email == #email")
-	public void get(@RequestParam("pageNum") int pageNum, @ModelAttribute("email") String email, Model model) {
-		model.addAttribute("reply", service.getQnAList(email));
-		
-		model.addAttribute("enswer", enswerService.enswerGetList(email));
+	@PreAuthorize("isAuthenticated()")
+	public void get(@RequestParam("pageNum") int pageNum, @RequestParam("replyNum") int replyNum, Model model) {
+		model.addAttribute("reply", service.getQnAList(replyNum));
+		model.addAttribute("enswer", enswerService.enswerGetList(replyNum));
 		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("email", email);
+		model.addAttribute("replyNum", replyNum);
+		QnAVO vo = service.getQnA(replyNum);
+		model.addAttribute("user", vo);
 	}
 
 	@PostMapping("/insert")
@@ -121,15 +121,15 @@ public class QnAController {
 	@PostMapping("/Reinsert")
 	@PreAuthorize("isAuthenticated()")
 	public String Reinsert(QnAVO vo) {
-		service.qnaInsert(vo);
+		service.qnaReInsert(vo);
 		return "redirect:/qna/list?pageNum=1";
 	}
 
 	@GetMapping("/enswer")
 	@PreAuthorize("isAuthenticated()")
-	public void enswer(@RequestParam("replyNum") int replyNum, Model model) {
-		model.addAttribute("replyNum", replyNum);
+	public void enswer(@RequestParam("replyNum") int replyNum,@RequestParam("inquiryNum") int inquiryNum, Model model) {
 		model.addAttribute("reply", service.getQnA(replyNum));
+		model.addAttribute("inquiryNum", inquiryNum);
 	}
 
 	@PostMapping("/enswer")
@@ -141,9 +141,9 @@ public class QnAController {
 	}
 	
 	@PostMapping("/delete")
-	public String delete(@RequestParam("pageNum") int pageNum, @RequestParam("email") String email, RedirectAttributes rttr) {
+	public String delete(@RequestParam("pageNum") int pageNum, @RequestParam("replyNum") int replyNum, RedirectAttributes rttr) {
 		System.out.println("여기는 넘어옵니다");
-		service.delete(email);
+		service.delete(replyNum);
 		rttr.addFlashAttribute("result", "deleteSuccess");
 		return "redirect:/qna/list?pageNum="+pageNum;
 	}

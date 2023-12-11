@@ -28,4 +28,6 @@ public class QnAEnswerVO {
 	private String email;
 	
 	private int re_inquiryNum;
+	
+	private int inquiryNum;
 }

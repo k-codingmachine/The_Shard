@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shard.domain.ItemVO;
-import com.shard.domain.PageVO;
+import com.shard.domain.SearchPageVO;
 import com.shard.mapper.ItemSearchMapper;
 
 @Service
@@ -17,86 +17,86 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	private ItemSearchMapper mapper;
 	
 	@Override
-	public List<ItemVO> Search(PageVO pagevo) {
-		return mapper.getSearchAllWithPaging(pagevo);
+	public List<ItemVO> Search(SearchPageVO SearchPageVO) {
+		return mapper.getSearchAllWithPaging(SearchPageVO);
 	}
 	
 	@Override
-	public List<ItemVO> AllLatest(PageVO vo) {
+	public List<ItemVO> AllLatest(SearchPageVO vo) {
 		return mapper.getSearchAllLatest(vo);
 	}
 
 
 	@Override
-	public List<ItemVO> RPrice(PageVO vo) {
+	public List<ItemVO> RPrice(SearchPageVO vo) {
 		return mapper.getRPrice(vo);
 	}
 
 	@Override
-	public List<ItemVO> HPrice(PageVO vo) {
+	public List<ItemVO> HPrice(SearchPageVO vo) {
 		return mapper.getHPrice(vo);
 	}
 
 	@Override
-	public List<ItemVO> getCategoryHPrice(int categoryNum, PageVO vo) {
+	public List<ItemVO> getCategoryHPrice(int categoryNum, SearchPageVO vo) {
 		return mapper.getCategoryHPrice(categoryNum, vo);
 	}
 	
 	@Override
-	public List<ItemVO> getCategoryRPrice(int categoryNum, PageVO vo) {
+	public List<ItemVO> getCategoryRPrice(int categoryNum, SearchPageVO vo) {
 		return mapper.getCategoryRPrice(categoryNum, vo);
 	}
 	
 	@Override
-	public List<ItemVO> getCategoryLatest(int categoryNum, PageVO vo) {
+	public List<ItemVO> getCategoryLatest(int categoryNum, SearchPageVO vo) {
 		return mapper.getCategoryLatest(categoryNum, vo);
 	}
 	
 	@Override
-	public List<ItemVO> getColorHPrice(String color, PageVO vo) {
+	public List<ItemVO> getColorHPrice(String color, SearchPageVO vo) {
 		return mapper.getColorHPrice(color, vo);
 	}
 	
 	@Override
-	public List<ItemVO> getColorRPrice(String color, PageVO vo) {
+	public List<ItemVO> getColorRPrice(String color, SearchPageVO vo) {
 		return mapper.getColorRPrice(color, vo);
 	}
 	
 	@Override
-	public List<ItemVO> getColorLatest(String color, PageVO vo) {
+	public List<ItemVO> getColorLatest(String color, SearchPageVO vo) {
 		return mapper.getColorLatest(color, vo);
 	}
 
 	
 	@Override
-	public List<ItemVO> getItemHPrice(String itemName, PageVO vo) {
+	public List<ItemVO> getItemHPrice(String itemName, SearchPageVO vo) {
 		return mapper.getItemHPrice(itemName, vo);
 	}
 	
 	@Override
-	public List<ItemVO> getItemRPrice(String itemName, PageVO vo) {
+	public List<ItemVO> getItemRPrice(String itemName, SearchPageVO vo) {
 		return mapper.getItemRPrice(itemName, vo);
 	}
 	
 	@Override
-	public List<ItemVO> getItemLatest(String itemName, PageVO vo) {
+	public List<ItemVO> getItemLatest(String itemName, SearchPageVO vo) {
 		return mapper.getItemLatest(itemName, vo);
 	}
 
 	
 	@Override
-	public List<ItemVO> getItemColorHPrice(String itemName, String color, PageVO vo) {
+	public List<ItemVO> getItemColorHPrice(String itemName, String color, SearchPageVO vo) {
 		return mapper.getItemColorHPrice(itemName, color, vo);
 	}
 	
 	
 	@Override
-	public List<ItemVO> getItemColorRPrice(String itemName, String color, PageVO vo) {
+	public List<ItemVO> getItemColorRPrice(String itemName, String color, SearchPageVO vo) {
 		return mapper.getItemColorRPrice(itemName, color, vo);
 	}
 	
 	@Override
-	public List<ItemVO> getItemColorLatest(String itemName, String color, PageVO vo) {
+	public List<ItemVO> getItemColorLatest(String itemName, String color, SearchPageVO vo) {
 		return mapper.getItemColorLatest(itemName, color, vo);
 	}
 	
@@ -117,8 +117,8 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 //	}
 
 //	@Override
-//	public List<ItemVO> searchWithPaging(PageVO pageVO) {
-//		return mapper.getItemSearchWithPaging(null, pageVO);
+//	public List<ItemVO> searchWithPaging(SearchPageVO SearchPageVO) {
+//		return mapper.getItemSearchWithPaging(null, SearchPageVO);
 //	}
 
 	@Override
@@ -127,18 +127,18 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	}
 
 	@Override
-	public List<ItemVO> CategoryWithPaging(int categoryNum, PageVO pageVO) {
-        return mapper.CategoryWithPaging(categoryNum, pageVO);
+	public List<ItemVO> CategoryWithPaging(int categoryNum, SearchPageVO SearchPageVO) {
+        return mapper.CategoryWithPaging(categoryNum, SearchPageVO);
 	}
 
 	@Override
-	public List<ItemVO> ColorWithPaging(String color, PageVO pageVO) {
-		return mapper.ColorWithPaging(color, pageVO);
+	public List<ItemVO> ColorWithPaging(String color, SearchPageVO SearchPageVO) {
+		return mapper.ColorWithPaging(color, SearchPageVO);
 	}
 
 	@Override
-	public List<ItemVO> ItemSearchWithPaging(String itemName, PageVO pageVO) {
-		return mapper.getItemSearchWithPaging(itemName, pageVO);
+	public List<ItemVO> ItemSearchWithPaging(String itemName, SearchPageVO SearchPageVO) {
+		return mapper.getItemSearchWithPaging(itemName, SearchPageVO);
 	}
 
 	@Override
@@ -162,8 +162,8 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	}
 
 	@Override
-	public List<ItemVO> getItemColorWithPaging(String itemName, String color, PageVO pagevo) {
-		return mapper.getItemColorWithPaging(itemName, color, pagevo);
+	public List<ItemVO> getItemColorWithPaging(String itemName, String color, SearchPageVO SearchPageVO) {
+		return mapper.getItemColorWithPaging(itemName, color, SearchPageVO);
 	}
 
 

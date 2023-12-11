@@ -3,7 +3,6 @@ package com.shard.mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.shard.domain.ItemVO;
-import com.shard.domain.WishListVO;
 
 public interface ItemMapper {
 
@@ -17,10 +16,13 @@ public interface ItemMapper {
 	public void itemDelete(int itemNum);
 
 	public int itemUpdate(ItemVO vo);
-	
-	public int wishListSelect(@Param("itemNum")int itemNum, @Param("email")String email);
-	
-	public void wishListInsert(@Param("itemNum")int itemNum, @Param("email")String email);
-	
-	public void wishListDelete(@Param("itemNum")int itemNum, @Param("email")String email);
+
+	// 상품문의를 위한, 상품 번호를 바탕으로 이름 가져오기
+	public String getItemNameByItemNum(int itemNum);
+
+	public int wishListSelect(@Param("itemNum") int itemNum, @Param("email") String email);
+
+	public void wishListInsert(@Param("itemNum") int itemNum, @Param("email") String email);
+
+	public void wishListDelete(@Param("itemNum") int itemNum, @Param("email") String email);
 }

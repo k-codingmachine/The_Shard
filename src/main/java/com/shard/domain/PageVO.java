@@ -10,18 +10,15 @@ import lombok.ToString;
 public class PageVO {
 	private int startPage, endPage, pageNum, total, start;
 
-	private String itemName = "";
-	
-	private int categoryNum = 0;
-	
-	private int amount = 40;
 
+	private int amount = 10;
+	
 	private boolean prev, next;
 
 	public PageVO(int pageNum, int total) {
 		this.pageNum = pageNum;
 		this.total = total;
-		this.start = (this.pageNum - 1) * amount;
+		this.start = (this.pageNum - 1) * this.amount;
 
 		this.endPage = (int) Math.ceil(pageNum / 10.0) * 10;
 		this.startPage = this.endPage - 9;
@@ -36,5 +33,4 @@ public class PageVO {
 
 		this.next = this.endPage < realEnd;
 	}
-
 }

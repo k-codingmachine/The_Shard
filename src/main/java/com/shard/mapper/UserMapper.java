@@ -32,4 +32,6 @@ public interface UserMapper {
 	public String adminCheck(String email);
 
 	public void insertCoupon(@Param("coupon") List<Integer> coupon, @Param("email")String email); // 회원가입 했을 때 웰컴 쿠폰
+	
+	public void updatePwd(@Param("email") String email, @Param("pwd")String pwd);
 }

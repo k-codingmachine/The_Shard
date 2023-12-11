@@ -2,7 +2,6 @@ package com.shard.controller;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,11 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mysql.cj.util.StringUtils;
 import com.shard.domain.ItemVO;
-import com.shard.domain.PageVO;
+import com.shard.domain.SearchPageVO;
 import com.shard.domain.SortType;
 import com.shard.service.ItemSearchService;
 
@@ -38,7 +35,7 @@ public class ItemSearchController {
 		System.out.println(sortType);
 		if (color != "" && itemName != "") {
 			if(sortType.equals("Latest")) {
-				PageVO vo = new PageVO(pageNum, service.getItemColorCount(itemName, color));
+				SearchPageVO vo = new SearchPageVO(pageNum, service.getItemColorCount(itemName, color));
 				model.addAttribute("list", service.getItemColorLatest(itemName, color, vo));
 				model.addAttribute("pageMaker", vo);
 				model.addAttribute("color", color);
@@ -46,7 +43,7 @@ public class ItemSearchController {
 				model.addAttribute("sortType", sortType);
 			}else if (sortType.equals("HPrice")) {
 				System.out.println("아이템 컬러 H들어옴");
-				PageVO vo = new PageVO(pageNum, service.getItemColorCount(itemName, color));
+				SearchPageVO vo = new SearchPageVO(pageNum, service.getItemColorCount(itemName, color));
 				model.addAttribute("list", service.getItemColorHPrice(itemName, color, vo));
 				model.addAttribute("pageMaker", vo);
 				model.addAttribute("color", color);
@@ -54,7 +51,7 @@ public class ItemSearchController {
 				model.addAttribute("sortType", sortType);
 			} else if (sortType.equals("RPrice")) {
 				System.out.println("아이템 컬러 R들어옴");
-				PageVO vo = new PageVO(pageNum, service.getItemColorCount(itemName, color));
+				SearchPageVO vo = new SearchPageVO(pageNum, service.getItemColorCount(itemName, color));
 				model.addAttribute("list", service.getItemColorRPrice(itemName, color, vo));
 				model.addAttribute("pageMaker", vo);
 				model.addAttribute("color", color);
@@ -62,7 +59,7 @@ public class ItemSearchController {
 				model.addAttribute("sortType", sortType);
 			}else {
 				System.out.println("그냥 아이템 컬러 검색");
-				PageVO vo = new PageVO(pageNum, service.getItemColorCount(itemName, color));
+				SearchPageVO vo = new SearchPageVO(pageNum, service.getItemColorCount(itemName, color));
 				model.addAttribute("list", service.getItemColorWithPaging(itemName, color, vo));
 				model.addAttribute("pageMaker", vo);
 				model.addAttribute("color", color);
@@ -74,28 +71,28 @@ public class ItemSearchController {
 		else if (color != "") {
 			if(sortType.equals("Latest")) {
 				System.out.println("컬러 최신순 들어옴");
-				PageVO vo = new PageVO(pageNum, service.getColorCount(color));
+				SearchPageVO vo = new SearchPageVO(pageNum, service.getColorCount(color));
 			    model.addAttribute("list", service.getColorLatest(color, vo));
 				model.addAttribute("pageMaker", vo);
 				model.addAttribute("color", color);
 				model.addAttribute("sortType", sortType);	
 			}else if(sortType.equals("HPrice")) {
 				System.out.println("컬러 H들어옴");
-				PageVO vo = new PageVO(pageNum, service.getColorCount(color));
+				SearchPageVO vo = new SearchPageVO(pageNum, service.getColorCount(color));
 			    model.addAttribute("list", service.getColorHPrice(color, vo));
 				model.addAttribute("pageMaker", vo);
 				model.addAttribute("color", color);
 				model.addAttribute("sortType", sortType);
 			}else if (sortType.equals("RPrice")) {
 				System.out.println("컬러 R들어옴");
-				PageVO vo = new PageVO(pageNum, service.getColorCount(color));
+				SearchPageVO vo = new SearchPageVO(pageNum, service.getColorCount(color));
 				model.addAttribute("list", service.getColorRPrice(color, vo));
 				model.addAttribute("pageMaker", vo);
 				model.addAttribute("color", color);
 				model.addAttribute("sortType", sortType);
 			}else {
 			System.out.println("그냥 컬러 들어옴");
-			PageVO vo = new PageVO(pageNum, service.getColorCount(color));
+			SearchPageVO vo = new SearchPageVO(pageNum, service.getColorCount(color));
 			model.addAttribute("list", service.ColorWithPaging(color, vo));
 			model.addAttribute("pageMaker", vo);
 			model.addAttribute("color", color);
@@ -104,28 +101,28 @@ public class ItemSearchController {
 		// itemName이 null이 아닌 경우에만 검색
 		else if (itemName != "") {
 			if(sortType.equals("Latest")) {
-				PageVO vo = new PageVO(pageNum, service.getItemNameCount(itemName));
+				SearchPageVO vo = new SearchPageVO(pageNum, service.getItemNameCount(itemName));
 				model.addAttribute("list", service.getItemLatest(itemName, vo));
 				model.addAttribute("pageMaker", vo);
 				model.addAttribute("itemName", itemName);
 				model.addAttribute("sortType", sortType);
 			}else if(sortType.equals("HPrice")) {
 				System.out.println("아이템 H들어옴");
-				PageVO vo = new PageVO(pageNum, service.getItemNameCount(itemName));
+				SearchPageVO vo = new SearchPageVO(pageNum, service.getItemNameCount(itemName));
 				model.addAttribute("list", service.getItemHPrice(itemName, vo));
 				model.addAttribute("pageMaker", vo);
 				model.addAttribute("itemName", itemName);
 				model.addAttribute("sortType", sortType);
 			}else if(sortType.equals("RPrice")) {
 				System.out.println("아이템 R들어옴");
-				PageVO vo = new PageVO(pageNum, service.getItemNameCount(itemName));
+				SearchPageVO vo = new SearchPageVO(pageNum, service.getItemNameCount(itemName));
 				model.addAttribute("list", service.getItemRPrice(itemName, vo));
 				model.addAttribute("pageMaker", vo);
 				model.addAttribute("itemName", itemName);
 				model.addAttribute("sortType", sortType);
 			}else {
 			System.out.println("그냥 아이템 들어옴");	
-			PageVO vo = new PageVO(pageNum, service.getItemNameCount(itemName));
+			SearchPageVO vo = new SearchPageVO(pageNum, service.getItemNameCount(itemName));
 			model.addAttribute("list", service.ItemSearchWithPaging(itemName, vo));
 			model.addAttribute("pageMaker", vo);
 			model.addAttribute("itemName", itemName);
@@ -135,26 +132,26 @@ public class ItemSearchController {
 		else {
 			if(sortType.equals("Latest")) {
 			System.out.println("전체 리스트 최신순 들어옴");	
-	        PageVO vo = new PageVO(pageNum, service.getTotalCount());
+	        SearchPageVO vo = new SearchPageVO(pageNum, service.getTotalCount());
 	        model.addAttribute("list", service.AllLatest(vo));
 	        model.addAttribute("pageMaker", vo);
 	        model.addAttribute("sortType", sortType);
 			}
 			else if(sortType.equals("HPrice")) {
 		        System.out.println("전체리스트 H들어옴");    
-		        PageVO vo = new PageVO(pageNum, service.getTotalCount());
+		        SearchPageVO vo = new SearchPageVO(pageNum, service.getTotalCount());
 		        model.addAttribute("list", service.HPrice(vo));
 		        model.addAttribute("pageMaker", vo);
 		        model.addAttribute("sortType", sortType);
 		    } else if(sortType.equals("RPrice")) {
 		        System.out.println("전체리스트 R들어옴");    
-		        PageVO vo = new PageVO(pageNum, service.getTotalCount());
+		        SearchPageVO vo = new SearchPageVO(pageNum, service.getTotalCount());
 		        model.addAttribute("list", service.RPrice(vo));
 		        model.addAttribute("pageMaker", vo);
 		        model.addAttribute("sortType", sortType);
 		    } else {
 		        System.out.println("그냥 전체리스트 들어옴");    
-		        PageVO vo = new PageVO(pageNum, service.getTotalCount());
+		        SearchPageVO vo = new SearchPageVO(pageNum, service.getTotalCount());
 		        model.addAttribute("list", service.Search(vo));
 		        model.addAttribute("pageMaker", vo);
 		    }
@@ -165,7 +162,7 @@ public class ItemSearchController {
 	@GetMapping("/list/category/{categoryNum}")
 	public String categoryList(@PathVariable(name = "categoryNum") int categoryNum,
 			@RequestParam(name = "pageNum", defaultValue = "1") int pageNum, Model model) {
-		PageVO vo = new PageVO(pageNum, service.getCategoryCount(categoryNum));
+		SearchPageVO vo = new SearchPageVO(pageNum, service.getCategoryCount(categoryNum));
 		vo.setCategoryNum(categoryNum);
 		List<ItemVO> searchResult = service.CategoryWithPaging(categoryNum, vo);
 		System.out.println("categoryNumSelect >>>" + vo);
@@ -180,19 +177,19 @@ public class ItemSearchController {
 			@PathVariable(name = "sortType") SortType sortType,
 			@RequestParam(name = "pageNum", defaultValue = "1") int pageNum, Model model) {
 		if(sortType == SortType.Latest) {
-			PageVO vo = new PageVO(pageNum, service.getCategoryCount(categoryNum));
+			SearchPageVO vo = new SearchPageVO(pageNum, service.getCategoryCount(categoryNum));
 			model.addAttribute("list", service.getCategoryLatest(categoryNum, vo));
 			model.addAttribute("pageMaker", vo);
 			model.addAttribute("categoryNum", categoryNum);
 		}
 		else if (sortType == SortType.HPrice) {
-			PageVO vo = new PageVO(pageNum, service.getCategoryCount(categoryNum));
+			SearchPageVO vo = new SearchPageVO(pageNum, service.getCategoryCount(categoryNum));
 			model.addAttribute("list", service.getCategoryHPrice(categoryNum, vo));
 			model.addAttribute("pageMaker", vo);
 			model.addAttribute("categoryNum", categoryNum);
 			System.out.println("categoryHP >>" + vo);
 		} else if (sortType == SortType.RPrice) {
-			PageVO vo = new PageVO(pageNum, service.getCategoryCount(categoryNum));
+			SearchPageVO vo = new SearchPageVO(pageNum, service.getCategoryCount(categoryNum));
 			model.addAttribute("list", service.getCategoryRPrice(categoryNum, vo));
 			model.addAttribute("pageMaker", vo);
 			model.addAttribute("categoryNum", categoryNum);

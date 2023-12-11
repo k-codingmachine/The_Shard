@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.shard.domain.DetailOrderVO;
 import com.shard.domain.ItemVO;
 import com.shard.domain.NoticeVO;
+import com.shard.domain.OrdersVO;
 import com.shard.domain.PageVO;
+import com.shard.domain.SearchPageVO;
 import com.shard.service.AdminService;
 import com.shard.service.ItemService;
 
@@ -35,7 +38,9 @@ public class AdminConroller {
 
 	@GetMapping("/")
 	@PreAuthorize("isAuthenticated()")
-	public String admin() {
+	public String admin(Model model) {
+		SearchPageVO vo = new SearchPageVO(1, 20);
+		model.addAttribute("list", vo);
 		return "admin/admin";
 	}
 
@@ -180,5 +185,24 @@ public class AdminConroller {
 		
 		return "redirect:/shard/notice?pageNum=1";
 	}
+	
+	@GetMapping("/statistics")
+	@PreAuthorize("isAuthenticated()")
+	public void adminUser(Model model, ItemVO vo) {
+		int t1 = service.statisticsCount(156);
+		int t2 = service.statisticsCount(100);
+		int t3 = service.statisticsCount(64);
+		int t4 = service.statisticsCount(4);
+		
+		model.addAttribute("t1", t1);
+		model.addAttribute("t2", t2);
+		model.addAttribute("t3", t3);
+		model.addAttribute("t4", t4);
+		
+
+		
+	}
+	
+	
 	
 }

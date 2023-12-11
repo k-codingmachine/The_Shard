@@ -14,9 +14,11 @@ public interface QnAService {
 	
 	public int qnaInsert(QnAVO vo);
 	
-	public int delete(String email);
+	public int qnaReInsert(QnAVO vo);
 	
-	public List<QnAVO> getQnAList(String email);
+	public int delete(int replyNum);
+	
+	public List<QnAVO> getQnAList(int replyNum);
 	
 	public int totalCount();
 	

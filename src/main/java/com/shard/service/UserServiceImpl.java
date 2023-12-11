@@ -2,10 +2,10 @@ package com.shard.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.shard.domain.CouponIssuanceVO;
-import com.shard.domain.CouponVO;
 import com.shard.domain.DeliverAddrVO;
 import com.shard.domain.ShardMemberVO;
 import com.shard.mapper.UserMapper;
@@ -20,11 +20,15 @@ public class UserServiceImpl implements UserService {
 	
 	private final UserMapper mapper;
 	
+	
+	private final PasswordEncoder passwordEncoder;
+	
 	@Override
 	public int userCheck(String email, String userPwd) {
 		int result = 0;
 		String pwd = mapper.userCheck(email);
-		if(pwd.equals(userPwd)) {
+		boolean realPwd = passwordEncoder.matches(userPwd, pwd);
+		if(realPwd) {
 			result = 1;
 		}else 
 			result = 0;
@@ -114,5 +118,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void insertCoupon(List<Integer> coupon, String email) {
 		mapper.insertCoupon(coupon, email);
+	}
+
+	@Override
+	public void updatePwd(String email, String pwd) {
+		mapper.updatePwd(email, pwd);
 	}
 }

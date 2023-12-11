@@ -12,6 +12,6 @@ public interface QnAEnswerMapper {
 	
 	public List<QnAEnswerVO> enswerList();
 	
-	public List<QnAEnswerVO> enswerGetList(String email);
+	public List<QnAEnswerVO> enswerGetList(int replyNum);
 	
 }

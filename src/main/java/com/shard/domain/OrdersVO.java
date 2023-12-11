@@ -16,7 +16,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrdersVO {
-	
+
 	private int orderId;
 	private int totalPrice;
 	private Date ordDate;
@@ -28,6 +28,4 @@ public class OrdersVO {
 	private String deliverName;
 	private String deliverPhone;
 	private int orderComplete;
-	
-}	
-	
+}

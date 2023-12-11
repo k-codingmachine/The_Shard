@@ -18,10 +18,10 @@ public class QnAEnswerMapperTest {
 	@Autowired
 	private QnAEnswerMapper mapper;
 
-	@Test
-	public void InsertEnswerTest() {
-		mapper.enswerGetList("user1@admin.com").forEach(list -> log.info(list));
-	}
+//	@Test
+//	public void InsertEnswerTest() {
+//		mapper.enswerGetList("user1@admin.com").forEach(list -> log.info(list));
+//	}
 	
 	@Test
 	public void insertAndupdateEnswer() {

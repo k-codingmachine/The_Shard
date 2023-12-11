@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +21,7 @@ import com.shard.domain.PageVO;
 import com.shard.domain.QnAVO;
 import com.shard.service.ItemReplyService;
 import com.shard.service.ItemService;
+import com.shard.service.QnAEnswerService;
 import com.shard.service.QnAService;
 
 import lombok.RequiredArgsConstructor;
@@ -35,50 +34,19 @@ import lombok.extern.log4j.Log4j;
 public class ItemInfoController {
 
 	private final ItemService itemService;
+
 	private final ItemReplyService replyService;
 
 	/* 영수 코드를 사용하여 이름 통일이 안 되어있음 */
 	private final QnAService service;
 
+	private final QnAEnswerService enswerService;
+
 	// 상품 정보 페이지
 	@GetMapping("/itemInfo")
 	public String itemInfo(Model model, @RequestParam("itemNum") int itemNum, @RequestParam("pageNum") int pageNum) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        System.out.println("emial >>" + email);
-		// Authentication 객체는 anonymousUser문자열을 반환한다.
-        if(!email.equals("anonymousUser")) {
-			System.out.println("회원일때");
-		    int result = itemService.wishListSelect(itemNum, email);
-		    if(result == 1) {
-				   System.out.println("result == 1");
-			List<ItemReplyVO> getReplyList = replyService.getReplyList(itemNum);
-			model.addAttribute("getReplyList", getReplyList);
 
-			// 고객 상품 리뷰 `페이징`
-			PageVO vo = new PageVO(pageNum, replyService.totalCount(itemNum));
-			model.addAttribute("itemInfo", itemService.getItem(itemNum));
-			model.addAttribute("list", replyService.replyList(vo));
-			model.addAttribute("page", vo);
-			model.addAttribute("itemNum", itemNum);
-			model.addAttribute("result", result);
-			return "item/itemInfo";
-		   }else {
-			   System.out.println("result == 0");
-			List<ItemReplyVO> getReplyList = replyService.getReplyList(itemNum);
-			model.addAttribute("getReplyList", getReplyList);
-
-			// 고객 상품 리뷰 `페이징`
-			PageVO vo = new PageVO(pageNum, replyService.totalCount(itemNum));
-			model.addAttribute("itemInfo", itemService.getItem(itemNum));
-			model.addAttribute("list", replyService.replyList(vo));
-			model.addAttribute("page", vo);
-			model.addAttribute("itemNum", itemNum);
-			model.addAttribute("result", result);   
-			return "item/itemInfo";
-		   }
-        }else if(email.equals("anonymousUser")){
-			System.out.println("비회원일때");
+		// 고객 상품 리뷰 `리스트`
 		List<ItemReplyVO> getReplyList = replyService.getReplyList(itemNum);
 		model.addAttribute("getReplyList", getReplyList);
 
@@ -87,11 +55,9 @@ public class ItemInfoController {
 		model.addAttribute("itemInfo", itemService.getItem(itemNum));
 		model.addAttribute("list", replyService.replyList(vo));
 		model.addAttribute("page", vo);
-		model.addAttribute("itemNum", itemNum);
-		return "item/itemInfo";
-        }
-        return "item/itemInfo";
-}
+
+		return "item/itemInfo"; // 이건 제발 주석처리 하지 말자
+	}
 
 	@GetMapping("/insertReply")
 	public void insert() {
@@ -128,7 +94,7 @@ public class ItemInfoController {
 		PageVO vo = new PageVO(pageNum, service.totalCount());
 		model.addAttribute("page", vo);
 		model.addAttribute("list", service.qnaList(vo));
-//		model.addAttribute("enswer", enswerService.enswerList());
+		model.addAttribute("enswer", enswerService.enswerList());
 		model.addAttribute("file", file);
 		model.addAttribute("result", result);
 	}
@@ -136,9 +102,12 @@ public class ItemInfoController {
 	/*
 	 * QnA영역
 	 * 
-	 * @GetMapping("/insertQna") public String insertQnA(@RequestParam("itemNum")
-	 * int itemNum, Model model) { String itemName =
-	 * itemService.getItemNameByItemNum(itemNum); // 아이템 서비스를 이용하여 상품 이름 가져오기 (가정)
+	 * @GetMapping("/insertQna")
+	 * 
+	 * @PreAuthorize("isAuthenticated()") public String
+	 * insertQnA(@RequestParam("itemNum") int itemNum, Model model) { String
+	 * itemName = itemService.getItemNameByItemNum(itemNum); // 아이템 서비스를 이용하여 상품 이름
+	 * 가져오기 (가정)
 	 * 
 	 * model.addAttribute("itemNum", itemNum); model.addAttribute("itemName",
 	 * itemName); // itemName을 Model에 추가
@@ -167,39 +136,28 @@ public class ItemInfoController {
 
 		return "redirect:/item/insertQna?itemNum=" + itemNum + "&pageNum=1";
 	}
-	
-	
-	
-   // wishlist
-   @GetMapping("/wishlist")
-   @PreAuthorize("isAuthenticated()")
-   @ResponseBody
-   public ResponseEntity<String> wishList(
-       @RequestParam("itemNum") int itemNum,
-       @RequestParam("email") String email) {
 
-       System.out.println("위시리스트");
-       int result = itemService.wishListSelect(itemNum, email);
+	// wishlist
+	@GetMapping("/wishlist")
+	@PreAuthorize("isAuthenticated()")
+	@ResponseBody
+	public ResponseEntity<String> wishList(@RequestParam("itemNum") int itemNum, @RequestParam("email") String email) {
 
-       if (result == 0) {
-           System.out.println("위시리스트에 추가");
-           itemService.wishListInsert(itemNum, email);
-           return ResponseEntity.status(HttpStatus.OK).body("ADD");
-        
-       } else {
-           System.out.println("위시리스트 제거");
-           itemService.wishListDelete(itemNum, email);
-           return ResponseEntity.status(HttpStatus.OK).body("REMOVE");
-      
-       }
-   }
-	 
-	 
+		System.out.println("위시리스트");
+		int result = itemService.wishListSelect(itemNum, email);
 
-	
-	
-	
-	
+		if (result == 0) {
+			System.out.println("위시리스트에 추가");
+			itemService.wishListInsert(itemNum, email);
+			return ResponseEntity.status(HttpStatus.OK).body("ADD");
+
+		} else {
+			System.out.println("위시리스트 제거");
+			itemService.wishListDelete(itemNum, email);
+			return ResponseEntity.status(HttpStatus.OK).body("REMOVE");
+
+		}
+	}
 
 	/*
 	 * 작성만 해 이거 ㄴㄴ , 추후에 코드 정리 할 때 수정, 삭제 내용을 삭제 할 수 있도록...

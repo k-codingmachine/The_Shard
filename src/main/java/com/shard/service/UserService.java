@@ -30,4 +30,8 @@ public interface UserService {
 	public int adminCheck(String email, String userPwd);
 	
 	public void insertCoupon(List<Integer> coupon, String email);
+	
+	public void updatePwd(String email, String pwd);
+	
+	
 }

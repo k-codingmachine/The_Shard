@@ -1,10 +1,10 @@
 package com.shard.controller;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -14,27 +14,30 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.shard.domain.CouponIssuanceVO;
-import com.shard.domain.CouponVO;
 import com.shard.domain.DeliverAddrVO;
 import com.shard.domain.PageVO;
+import com.shard.domain.SearchPageVO;
 import com.shard.domain.ShardMemberVO;
 import com.shard.mapper.MemberMapper;
 import com.shard.service.AdminService;
+import com.shard.service.ItemSearchService;
 import com.shard.service.MailSendService;
+import com.shard.service.OrderService;
 import com.shard.service.SosialLoginService;
 import com.shard.service.UserService;
 
@@ -55,14 +58,22 @@ public class UserController {
 
 	private final PasswordEncoder passwordEncoder;
 
-	private final MemberMapper mapper;
-	
 	private final AdminService adminService;
+	
+	private final OrderService orderService;
+	
+	private final ItemSearchService searchService;
+
+	@GetMapping("/deliverMap")
+	public String deliverMap() {
+		return "deliverMap";
+	}
 
 	// 메인 페이지로 이동 // 카카로 로그아웃 이후에도 여기로 이동
 	@GetMapping("")
-	public String index() {
-		log.info("index");
+	public String index(Model model) {
+		SearchPageVO vo = new SearchPageVO(1, 20);
+		model.addAttribute("list", searchService.AllLatest(vo));
 		return "index";
 	}
 
@@ -87,13 +98,6 @@ public class UserController {
 		return "user/shardJoin";
 	}
 
-	@PostMapping("/myPage")
-	@PreAuthorize("isAuthenticated()")
-	public String mypage(Model model, @RequestParam String email) {
-		model.addAttribute("user", userservice.getUser(email));
-		return "user/myPage";
-	}
-
 	// 카카오 회원가입 페이지로 이동
 	@GetMapping("/kakaoJoin")
 	public String kakaoJoin(Model model, @ModelAttribute("userEmail") String userEmail,
@@ -106,30 +110,30 @@ public class UserController {
 
 	// 카카오로 로그인했을 때 따로 만든 카카오 로그아웃
 	@GetMapping("/kakaoLogout")
-	public String kakaoLogout(RedirectAttributes rttr, HttpServletRequest request, HttpServletResponse response, HttpSession session, SessionStatus status) throws Throwable {
+	public String kakaoLogout(RedirectAttributes rttr, HttpServletRequest request, HttpServletResponse response,
+			HttpSession session, SessionStatus status) throws Throwable {
 		log.info("카카오 로그아웃");
 		session.invalidate();
 		Cookie[] cookies = request.getCookies();
-		if(cookies != null) {
-			for(Cookie cookie : cookies) {
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
 				cookie.setMaxAge(0);
 				response.addCookie(cookie);
 			}
 		}
-		
+
 		return "redirect:/shard/";
 	}
 
 	// ajax로 회원가입할 때 데이터베이스에 사용중인 아이디가 있는지 체크
-	   @GetMapping("/idCheck")
-	   public void idCheck(String userId, HttpServletResponse response) throws Exception {
-	      System.out.println(userId);
-	      int result = userservice.idCheck(userId);
-	      MultiValueMap<String, Object> json = new LinkedMultiValueMap<>();
-	      json.add("result", result);
-	      response.setContentType("application/json");
-	      response.getWriter().write(json.toString());
-	   }
+	@GetMapping("/idCheck")
+	public ResponseEntity<Map<String, Integer>> idCheck(String email, HttpServletResponse response) throws Exception {
+		System.out.println(email);
+		int result = userservice.idCheck(email);
+		Map<String, Integer> resultMap = new HashMap<String, Integer>();
+		resultMap.put("result", result);
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
 
 	@GetMapping("/emailSecurity")
 	public ResponseEntity<String> emailSecurity(String email) {
@@ -139,8 +143,8 @@ public class UserController {
 
 	// 카카오 로그인을 할 때
 	@GetMapping("/login/oauth")
-	public String kakaoOauth(@RequestParam(required = false) String code, Model model, RedirectAttributes rttr, HttpSession session)
-			throws Throwable {
+	public String kakaoOauth(@RequestParam(required = false) String code, Model model, RedirectAttributes rttr,
+			HttpSession session) throws Throwable {
 		String url = "";
 
 		String access_Token = kakaoLoginService.getAccessToken(code);
@@ -164,7 +168,7 @@ public class UserController {
 		}
 		return url;
 	}
-	
+
 	@GetMapping("/notice")
 	public String notice(@RequestParam int pageNum, Model model) {
 		PageVO vo = new PageVO(pageNum, adminService.noticeCount());
@@ -172,43 +176,23 @@ public class UserController {
 		model.addAttribute("page", vo);
 		return "notice";
 	}
-	
+
 	@GetMapping("/noticeGet")
 	public String noticeGet(@RequestParam int pageNum, @RequestParam int noticeNum, Model model) {
 		model.addAttribute("notice", adminService.getNotice(noticeNum));
 		model.addAttribute("pageNum", pageNum);
 		return "noticeGet";
 	}
-	
-//	// 카카오 로그인을 할 때
-//	@GetMapping("/login/naver")
-//	public String naverOauth(@RequestParam(required = false) String code, @RequestParam String state, Model model, RedirectAttributes rttr, HttpSession session)
-//			throws Throwable {
-//		String url = "";
-//		
-//		OAuth2AccessToken oauthToken;
-//		
-//		if (result != 0) {
-//			kakaoLoginService.setAuthentication(userEmail);
-//			session.setAttribute("token", access_Token);
-//			url = "redirect:/shard/";
-//		} else {
-//			rttr.addAttribute("userEmail", userEmail);
-//			rttr.addAttribute("nickName", nickName);
-//			url = "redirect:/shard/kakaoJoin";
-//		}
-//		return url;
-//	}
 
 	@PostMapping("/join")
 	public String join(ShardMemberVO vo, RedirectAttributes rttr, @RequestParam("birthYear") int year,
 			@RequestParam("birthMonth") int month, @RequestParam("birthDay") int day, DeliverAddrVO addrVO) {
-		Timestamp dob = Timestamp.valueOf(year + "-" + month + "-" + day+" 0000:00:00");
+		Timestamp dob = Timestamp.valueOf(year + "-" + month + "-" + day + " 0000:00:00");
 		vo.setDob(dob);
 		vo.setUserPwd(passwordEncoder.encode(vo.getUserPwd()));
 		int result = userservice.insertUser(vo);
 		userservice.insertAddr(addrVO);
-		List<Integer> coupon = Arrays.asList(1,2,3);
+		List<Integer> coupon = Arrays.asList(1, 2, 3);
 		userservice.insertCoupon(coupon, vo.getEmail());
 		if (result == 1) {
 			rttr.addFlashAttribute("result", "success");
@@ -221,7 +205,7 @@ public class UserController {
 	@PostMapping("/kakaoJoin")
 	public String kakaoJoin(RedirectAttributes rttr, ShardMemberVO vo, @RequestParam("birthYear") int year,
 			@RequestParam("birthMonth") int month, @RequestParam("birthDay") int day, DeliverAddrVO addrVO) {
-		Timestamp dob = Timestamp.valueOf(year + "-" + month + "-" + day+" 0000:00:00");
+		Timestamp dob = Timestamp.valueOf(year + "-" + month + "-" + day + " 0000:00:00");
 		vo.setDob(dob);
 		int result = userservice.insertKakaoUser(vo);
 		userservice.insertAddr(addrVO);
@@ -233,4 +217,98 @@ public class UserController {
 		return "redirect:/shard/login";
 	}
 
+	////////////////////////////// 비밀번호 찾기///////////////////////
+
+	@GetMapping("/findUser")
+	public String findUser() {
+		return "user/findUser";
+	}
+
+	@GetMapping("/findPwd")
+	public ResponseEntity<String> findPwd(String email) {
+		System.out.println(email);
+		int result = userservice.idCheck(email);
+		if (result != 0) {
+			ShardMemberVO vo = userservice.getUser(email);
+			if (vo.getUserPwd() == null) {
+				return new ResponseEntity<String>("kakaoUser", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>(mailSendService.findPwd(email), HttpStatus.OK);
+			}
+		} else {
+			return new ResponseEntity<String>("noUser", HttpStatus.OK);
+		}
+	}
+
+	@PostMapping("/changePwd")
+	public String changePwd(Model model, @RequestParam String email) {
+		model.addAttribute("email", email);
+		return "user/changePwd";
+	}
+
+	@PostMapping("/updatePwd")
+	public String updatePwd(@RequestParam String userPwd, @RequestParam String email, RedirectAttributes rttr) {
+		String pwd = passwordEncoder.encode(userPwd);
+		userservice.updatePwd(email, pwd);
+		rttr.addFlashAttribute("result", "updatePwd");
+		return "redirect:/shard/login";
+	}
+
+	///////////////////////// 회원 정보 /////////////////////////////
+	
+	// 마이페이지 => 이게 가장 오래 걸리지 않을까?...
+	@PostMapping("/myPage")
+	@PreAuthorize("isAuthenticated()")
+	public String mypage(Model model, @RequestParam String email) {
+		model.addAttribute("user", userservice.getUser(email)); // 회원 정보
+//		model.addAttribute("coupon", orderService.getCouponIssuance(email)); // 가지고 있는 쿠폰?이겠지?
+//		model.addAttribute("couponCount", orderService.couponCount(email)); // 가지고 있는 쿠폰의 갯수
+		return "user/myPage";
+	}
+	
+
+	@GetMapping("/userCheck")
+	@PreAuthorize("isAuthenticated()")
+	public String userCheck(HttpSession session, Model model, @ModelAttribute String result) {
+		String token = (String) session.getAttribute("token");
+		if (token != null) {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String email = authentication.getName();
+			ShardMemberVO vo = userservice.getUser(email);
+			model.addAttribute("user", vo);
+			return "user/userGet";
+		} else {
+			model.addAttribute("result", result);
+			return "user/check";
+		}
+	}
+
+	@PostMapping("/userCheck")
+	public String userCheck(ShardMemberVO vo, Model model, RedirectAttributes rttr) {
+		int result = userservice.userCheck(vo.getEmail(), vo.getUserPwd());
+		String url = "";
+		if (result == 1) {
+			model.addAttribute("user", userservice.getUser(vo.getEmail()));
+			url = "user/userGet";
+		} else {
+			rttr.addFlashAttribute("result", "noPwd");
+			url = "redirect:/shard/userCheck";
+		}
+
+		return url;
+	}
+
+	@PostMapping("/updateUser")
+	public String updateUser(ShardMemberVO vo, RedirectAttributes rttr) {
+		if (vo.getUserPwd() != null) {
+			String pwd = passwordEncoder.encode(vo.getUserPwd());
+			vo.setUserPwd(pwd);
+			userservice.updateUser(vo);
+			System.out.println("수정 완");
+		}else {
+			userservice.updateUser(vo);
+			System.out.println("수정 완");
+		}
+		return "redirect:/shard/";
+	}
 }

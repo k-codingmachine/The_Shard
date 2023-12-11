@@ -35,4 +35,6 @@ public class QnAVO {
 	private String email;
 	
 	private String replyCategory;
+	
+	private int inquiryNum;
 }

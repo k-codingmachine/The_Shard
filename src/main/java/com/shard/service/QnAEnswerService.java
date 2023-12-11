@@ -11,6 +11,6 @@ public interface QnAEnswerService {
 
 	public List<QnAEnswerVO> enswerList(); // 답변 리스트를 뽑아서 답변을 했으면 답변완료 태그추가
 	
-	public List<QnAEnswerVO> enswerGetList(String email); // 답변 리스트를 뽑아서 답변을 했으면 답변완료 태그추가
+	public List<QnAEnswerVO> enswerGetList(int replyNum); // 답변 리스트를 뽑아서 답변을 했으면 답변완료 태그추가
 	
 }
