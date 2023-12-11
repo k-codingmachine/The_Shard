@@ -35,7 +35,6 @@
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />				
 				<input type="hidden" name="pageNum" value="${pageNum}" />
 				<input type="hidden" name="replyNum" value="${replyNum}" />
-				<input type="hidden" name="email" value="${reply.email}" />
 				<table style="margin:0 auto; width:260px;">
 					<tbody>
 						<tr>

@@ -16,8 +16,8 @@ input {accent-color: #8581d6;}
 
 .mainWrap {position:relative; margin: auto 0; width:100%; }
 
-.header {height:130px; width:100%;}
-
+.header {height:130px; width:100%; position: relative;}
+ 
 /* 탑 오른쪽 네비 */
 .topRightNav {margin:0 100px; height:50px;}
 .topRightNav ul {display:flex; justify-content: space-evenly; float:right; width:330px; margin-top:20px;}
@@ -25,7 +25,7 @@ input {accent-color: #8581d6;}
 .topRightNav a {color:#999; font-size:13px; font-weight:300;}
 
 /* 메인 네비 */
-.mainNav {height:80px; margin:0 100px;  width:1424px; }
+.mainNav {height:80px; margin:0 100px;  width:1424px;}
 .mainNav > a {float:left; display: block; font-size:32px; width:160px; height:60px;}
 .mainNav > a > img {width:160px; height:60px;}
 .mainNav > ul {float:left; margin-left:70px; margin-top:20px; width:600px;}
@@ -36,6 +36,17 @@ input {accent-color: #8581d6;}
 
 .division_line {margin:3px 2% 0;}
 .division_line > span {display:inline-block; width:1px; height:15px; background-color:#000;}
+
+/* 검색 */
+.search {position:absolute; width:120px; margin-left:20px; top:80px; right:205px; border:none; border-bottom:1px solid #000; height:20px;}
+.searchBtn {position: absolute; width:15px; height:15px; top:83px; right:210px; background:#fff; border:0;}
+#glass {position:absolute; font-size:13px; top:3px; right:0px;}
+
+/* 장바구니 */
+.Cartbtn {position:absolute; top:74px; right:150px; }
+.Cartbtn > a {display: block; position: relative;}
+.Cartbtn > a > span {position: absolute; top:5px; left:10px;}
+.Cartbtn img {width:28px;}
 
 /* 푸터 */
 .footer_wrap {position:relative; background-color:#f3f3f4; font-size:13px; color:#767678;}

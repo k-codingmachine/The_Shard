@@ -56,8 +56,8 @@
 							name="roadAddress"> <input type="text" id="jibunAddress"
 							placeholder="지번주소" name="jibunAddress">
 							<p id="guide" style="color: #999; display: none"></p> <input
-							type="text" id="detailAddress" placeholder="상세주소"
-							name="detailAddress"> <input type="text"
+							type="text" id="detailAddr" placeholder="상세주소"
+							name="detailAddr"> <input type="text"
 							id="extraAddress" placeholder="참고항목" name="extraAddress">
 						</li>
 						<li class="birth">

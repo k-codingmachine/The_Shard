@@ -25,8 +25,7 @@
 
 		<div class="QnAform">
 			<form action="/qna/insert?${_csrf.parameterName}=${_csrf.token}" method="post" id="QnAForm" enctype="multipart/form-data">
-<%-- 				<input type="hidden" name="email" value='<sec:authentication property="principal.member.email"/>' /> --%>
-				<input type="hidden" name="email" value='user1@admin.com' /> <!-- 테스트용 임시 이메일, 삭제예정 -->
+				<input type="hidden" name="email" value='<sec:authentication property="principal.member.email"/>' />
 				<input type="hidden" name="itemNum" value="${itemNum}" /> <!-- itemNum을 hidden input으로 전달 -->
 				<table>
 						<div>상품 번호: ${param.itemNum}</div> 

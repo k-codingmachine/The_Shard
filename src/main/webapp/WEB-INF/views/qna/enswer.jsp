@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,43 +27,47 @@
 
 		<div class="QnAform">
 			<form action="/qna/enswer" method="post" id="enswerForm">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-				<input type="hidden" name="replyNum" value="${replyNum}" />
-				<input type="hidden" name="email" value="${reply.email}" />
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+				<input type="hidden" name="replyNum" value="${reply.replyNum}" />
+				<input type="hidden" name="inquiryNum" value="${reply.inquiryNum}" />
 				<table>
 					<tbody>
-					<tr>
-						<th><div>TITLE</div></th>
-						<td colspan="3">
-							<div class="title">
-								<select name="replyCategory" id="replyCategory">
-									<option value="${reply.replyCategory}">${reply.replyCategory}</option>
-								</select>
-								<br />
-								<input type="text" name="replyTitle" id="replyTitle" readonly="readonly" value="${reply.replyTitle}" style="width:460px;"/>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<th><div>CONTENT</div></th>
-						<td>
-							<div>
-								<input type="text" name="replyContent" id="replyContent" readonly="readonly" value="${reply.replyContent}" style="width:460px;"/>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<th><div>답변</div></th>
-						<td colspan="3">
-							<div>
-								<textarea name="enswerContent" id="enswerContent" class="QnAtextarea"></textarea>
-							</div>
-						</td>
-						
-					</tr>
+						<tr>
+							<th><div>TITLE</div></th>
+							<td colspan="3">
+								<div class="title">
+									<select name="replyCategory" id="replyCategory">
+										<option value="${reply.replyCategory}">${reply.replyCategory}</option>
+									</select> <br /> <input type="text" name="replyTitle" id="replyTitle"
+										readonly="readonly" value="${reply.replyTitle}"
+										style="width: 460px;" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th><div>CONTENT</div></th>
+							<td>
+								<div>
+									<input type="text" name="replyContent" id="replyContent"
+										readonly="readonly" value="${reply.replyContent}"
+										style="width: 460px;" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th><div>답변</div></th>
+							<td colspan="3">
+								<div>
+									<textarea name="enswerContent" id="enswerContent"
+										class="QnAtextarea"></textarea>
+								</div>
+							</td>
+
+						</tr>
 					</tbody>
 				</table>
-				
+
 				<div class="writeBtn">
 					<button type="reset">RESET</button>
 					<button type="button" onclick="QnAEnswerCheck()">WRITE</button>
@@ -69,7 +75,7 @@
 			</form>
 		</div>
 	</div>
-	
+
 	<jsp:include page="../footer.jsp" />
 </body>
 </html>

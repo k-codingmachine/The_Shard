@@ -57,7 +57,7 @@
 						<td><fmt:formatDate pattern="yyyy-MM-dd"
 								value="${noEnswer.replyRegDate}" /></td>
 						<td>${noEnswer.email}</td>
-						<td><a href="/qna/enswer/?replyNum=${noEnswer.replyNum}">답변하기</a></td>
+						<td><a href="/qna/enswer/?replyNum=${noEnswer.replyNum}&inquiryNum=${noEnswer.inquiryNum}">답변하기</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

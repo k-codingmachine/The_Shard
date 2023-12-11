@@ -78,6 +78,7 @@ function redirectToInsertQnA() {
 	        // 처리할 수 없는 경우 에러 메시지 출력 또는 다른 작업 수행
 	    }
 }
+
 // whislist 관련
 function changeColor() {
     console.log("너 작동하냐");
@@ -99,8 +100,6 @@ function changeColor() {
       window.location.href = "/shard/login"; // 페이지 이동
     }
   }
-
-
 
 
 

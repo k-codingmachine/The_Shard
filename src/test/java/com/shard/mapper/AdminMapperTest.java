@@ -51,4 +51,10 @@ public class AdminMapperTest {
 		
 	}
 	
+	@Test
+	public void testStatisticsCount() {
+		int orderId = 100;
+		mapper.statisticsCount(orderId);
+	}
+	
 }

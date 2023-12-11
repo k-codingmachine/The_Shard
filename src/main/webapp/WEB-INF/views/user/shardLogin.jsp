@@ -28,6 +28,10 @@
 		alert("회원가입 도중 에러가 발생했습니다.");
 	}
 	
+	if(result == "updatePwd"){
+		alert("비밀번호가 변경되었습니다.");
+	}
+	
 	if(result == "noUser"){
 		alert("아이디 또는 비밀번호가 틀렸습니다.");
 	}
@@ -67,7 +71,7 @@
 					</label>
 				</fieldset>
 				<div class="findIDandPwd">
-					<a href="/shard/finduser">아이디/비밀번호 찾기</a>
+					<a href="/shard/findUser">비밀번호 찾기</a>
 				</div>
 				<a href="#" class="buttonLogin"><span>로그인</span></a> <a
 					href="/shard/join" class="buttonJoin"><span>회원가입</span></a>
@@ -82,14 +86,6 @@
 								 alt="카카오 로그인 버튼" />
 						</a>
 							</li>
-						<li><a
-							href="<%= apiURL %>">
-								<img
-								src="/resources/btnW_완성형.png"
-								 alt="네이버 로그인 버튼" />
-						</a>
-							</li>
-							
 					</ul>
 				</div>
 			</form>

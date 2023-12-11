@@ -75,3 +75,8 @@ margin-top:10px !important;}
 
 .contract-table td {text-align: center; border:1px solid #e5e5e5;}
 .contract-table td div {padding:10px; font-size:12px;}
+
+
+.getBtn button {float:right; margin:30px 10px; border:1px solid #787878; color:#000; background:#fff; transition:all 0.2s ease-in-out; border-radius: 30px; padding:8px 20px; font-size:13px; line-height:15px;}
+
+.getBtn button:hover {color:#fff; background:#787878;}

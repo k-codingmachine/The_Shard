@@ -4,20 +4,26 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+<script src="https://kit.fontawesome.com/f21f7d3508.js"
+	crossorigin="anonymous"></script>
 <script type="text/javascript">
 	$(function() {
 		$('.logoutBtn').click(function(e) {
 			e.preventDefault();
 			$('#logoutForm').submit();
 		});
-		
-		$('.myPage').click(function(e){
-			e.preventDefault();
-			var email = $(this).attr("href");
-			$('#logoutForm').append("<input type='hidden' name='email' value="+email+" />");
-			$('#logoutForm').attr("action", "/shard/myPage");
-			$('#logoutForm').submit();
-		})
+
+		$('.myPage')
+				.click(
+						function(e) {
+							e.preventDefault();
+							var email = $(this).attr("href");
+							$('#logoutForm')
+									.append(
+											"<input type='hidden' name='email' value="+email+" />");
+							$('#logoutForm').attr("action", "/shard/myPage");
+							$('#logoutForm').submit();
+						})
 	})
 </script>
 <div class="header">
@@ -32,9 +38,9 @@
 						style="font-size: 14px; color: #333; font-weight: 400;"> <sec:authentication
 								property="principal.member.userName" />님
 					</span></li>
-					
+
 					<%
-						String token = (String)session.getAttribute("token");
+					String token = (String) session.getAttribute("token");
 					%>
 					<!-- 기타 로그인된 상태에서의 메뉴 등 추가 -->
 					<c:choose>
@@ -50,7 +56,9 @@
 						<li><a href="/admin/">관리자페이지</a></li>
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_USER')">
-						<li><a href='<sec:authentication property="principal.member.email"/>' class="myPage">마이페이지</a></li>
+						<li><a
+							href='<sec:authentication property="principal.member.email"/>'
+							class="myPage">마이페이지</a></li>
 					</sec:authorize>
 					<li><a href="/shard/notice?pageNum=1">공지사항</a></li>
 					<li><a href="/qna/list?pageNum=1">Q&A</a></li>
@@ -86,5 +94,21 @@
 			<li><a href="/shard/category/4">Shirts</a></li>
 			<li><a href="/shard/category/acc">Acc</a></li>
 		</ul>
+
+		<form action="/itemSearch/list" method="get">
+			<input type="text" class="search" name="itemName" value=""/>
+			<input type="hidden" name="color" value=""/>
+			<button type="submit" class="searchBtn">
+				<i class="fa-solid fa-magnifying-glass" id="glass"></i>
+			</button>
+		</form>
+	</div>
+
+
+
+	<div class="Cartbtn">
+		<a href="/order/cart"> <img src="/resources/shopping-bag.svg" />
+			<span>0</span>
+		</a>
 	</div>
 </div>

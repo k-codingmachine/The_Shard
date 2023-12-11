@@ -25,9 +25,9 @@
 		<div class="QnAReform">
 			<form action="/qna/Reinsert" method="post" id="QnAReForm">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-				<input type="hidden" name="email" value='<sec:authentication property="principal.member.email"/>' />
+				<input type="hidden" name="inquiryNum" value="${inquiryNum}" />
 				<input type="hidden" name="replyTitle" value="" />
-				<input type="hidden" name="replyCategoty" value="${reply.replyCategory}" />
+				<input type="hidden" name="email" value='<sec:authentication property="principal.member.email"/>' />
 				<table>
 					<tbody>
 					<tr>
@@ -42,7 +42,7 @@
 					</tbody>
 				</table>
 				<div class="writeBtn">
-					<button type="button" onclick="javascrupt:history.go(-1)">이전</button>
+					<button type="button" onclick="javascript:history.go(-1)">이전</button>
 					<button type="button" onclick="QnAReFormCheck()">WRITE</button>
 				</div>
 			</form>

@@ -31,7 +31,7 @@
     color: #007cd8; 
 }
 
-ul > li {
+#sort > ul > li {
   margin: 16px;
   display: inline-block;
 }
@@ -56,6 +56,40 @@ ul > li {
 
 #color::-webkit-scrollbar-track {
     background-color: #f1f1f1; 
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+#searchbar {
+  position: relative;
+  width: 300px;
+   margin: 10px auto 10px auto;
+  
+}
+
+#searchbar .inputbox {
+  width: 100%;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+#searchbar .img {
+  position : absolute;
+  width: 17px;
+  top: 10px;
+  right: 12px;
+  margin: 0;
 }
 
 

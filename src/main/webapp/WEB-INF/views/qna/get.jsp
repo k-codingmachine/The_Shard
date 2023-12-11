@@ -32,10 +32,9 @@
 		<h3>문의 내역</h3>
 
 		<form action="/qna/delete" method="post" name="frm" id="QnADeleteForm">
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" /> <input type="hidden" name="email"
-				value="${email}" /> <input type="hidden" name="pageNum"
-				value="${pageNum}" />
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<input type="hidden" name="replyNum" value="${replyNum}" />
+			<input type="hidden" name="pageNum" value="${pageNum}" />
 			<c:forEach var="reply" items="${reply}">
 				<div class="viewHeader">
 					<c:choose>
@@ -89,9 +88,13 @@
 				<sec:authorize access="isAuthenticated()">
 					<c:set var="showReinsertButton" value="true" />
 
-					<c:if test="${pinfo.member.email == email}">
+					<c:if test="${pinfo.member.email == user.email}">
 						<button type="button" onclick="deleteQnA()">DELETE</button>
 					</c:if>
+
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<button type="button" onclick="deleteQnA()">DELETE</button>
+					</sec:authorize>
 
 					<c:forEach var="replyItem" items="${reply}">
 						<c:if test="${replyItem.replyComplete == 0}">
@@ -102,7 +105,7 @@
 					<c:if test="${showReinsertButton}">
 						<sec:authorize access="hasRole('ROLE_USER')">
 							<button type="button"
-								onclick="location.href='/qna/Reinsert?pageNum=${pageNum}'">재문의</button>
+								onclick="location.href='/qna/Reinsert?pageNum=${pageNum}&inquiryNum=${replyNum}'">재문의</button>
 						</sec:authorize>
 					</c:if>
 
@@ -110,7 +113,7 @@
 						<c:if test="${replyItem.replyComplete == 0}">
 							<sec:authorize access="hasRole('ROLE_ADMIN')">
 								<button type="button"
-									onclick="location.href='/qna/enswer?replyNum=${replyItem.replyNum}'">답글달기</button>
+									onclick="location.href='/qna/enswer?replyNum=${replyItem.replyNum}&inquiryNum=${replyNum}'">답글달기</button>
 							</sec:authorize>
 						</c:if>
 					</c:forEach>

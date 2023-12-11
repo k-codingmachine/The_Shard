@@ -8,6 +8,8 @@ $(function () {
 			$(this).animate({ opacity: 0 }, 300);
 		}
 	});
+	
+
 
 	// 아이디를 입력할 때마다 실시간으로 DB에 있는 userid를 검사해서 밑에 text나오게 하는 구문
 	$('#email').on('input', checkUserId);
@@ -47,7 +49,7 @@ $(function () {
 
 // 아이디 ajax로 사용가능한지 체크
 function checkUserId() {
-	const userEmail = $('#email').val();
+	const email = $('#email').val();
 	const userEmailCheckElement = $('.emailCheck');
 	var userEmailPatternEnd = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
@@ -57,26 +59,27 @@ function checkUserId() {
 		$.ajax({
 			type: 'get',
 			url: '/shard/idCheck',
-			data: { userEmail: userEmail },
+			data: { email: email },
+			dataType : 'json',
 			success: function (response) {
 				var result = response.result;
+				console.log(result);
 				if (result === 0) { // 데이터베이스에 사용중인 아이디가 없을 때
-					if (userEmailPatternEnd.test(userEmail)) {
+					if (userEmailPatternEnd.test(email)) {
 						userEmailCheckElement.text("사용 가능한 이메일입니다.").css({ color: "#000" });
 						resolve(true); // Promise를 성공 상태로 처리
-					} else if (!(userEmailPatternEnd.test(userEmail))) {
+					} else if (!(userEmailPatternEnd.test(email))) {
 						userEmailCheckElement.text("올바른 이메일 형식을 작성해주세요").css({ color: "#0095ff" });
-						resolve(false); // Promise를 성공 상태로 처리
+						resolve(false); // Promise를 실패 상태로 처리
 					}
 				} else {
 					userEmailCheckElement.text("사용 중인 이메일입니다.").css({ color: "#0095ff" });
-					resolve(false); // Promise를 성공 상태로 처리
+					resolve(false); // Promise를 실패 상태로 처리
 				}
 			},
 			error: function () {
 				// 에러 처리
 				console.log("에러 발생");
-				reject("에러 발생"); // Promise를 실패 상태로 처리
 			}
 		});
 	});

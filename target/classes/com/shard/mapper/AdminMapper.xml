@@ -117,5 +117,11 @@
 	<delete id="deleteNotice">
 		delete from notice where noticeNum = #{noticeNum}
 	</delete>
+	
+	<select id="statisticsCount" resultType="int">
+	select count(*) from detailorder
+	where orderId = #{orderId}
+	</select>
+	
 
 </mapper>

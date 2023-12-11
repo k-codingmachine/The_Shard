@@ -49,4 +49,7 @@ public interface AdminService {
 	public List<NoticeVO> noticeList(PageVO vo);
 
 	public int noticeCount();
+	
+	public int statisticsCount(int orderId);
+
 }

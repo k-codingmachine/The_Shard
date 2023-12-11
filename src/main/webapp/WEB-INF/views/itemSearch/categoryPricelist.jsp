@@ -5,11 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>paging</title>
+<title>category</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/categorylist.css">
+<link rel="stylesheet" type="text/css"
+	href="/resources/css/common.css">
 <script type="text/javascript" src="/resources/js/itemSearch.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -23,6 +25,8 @@
 <title>상품 목록</title>
 </head>
 <body>
+<jsp:include page="../header.jsp"></jsp:include>
+
 	<!-- 검색조건 처리 -->
 	<div id="search" class="row">
 		<div class="col-lg-12">
@@ -60,8 +64,13 @@
 					<option value="코코아">코코아</option>
 					<option value="핑크">핑크</option>
 					<option value="화이트">화이트</option>
-				</select> <input type="text" name="itemName" value="${itemName}" /> <input
-					type="hidden" name="categoryNum" value="${categoryNum}" />
+				</select>
+				
+				<div id="searchbar">
+				<input type="text" class="inputbox" name="itemName" placeholder="검색어 입력"  value="${itemName}" /> 
+				 <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" class="img">
+				<input type="hidden" name="categoryNum" value="${categoryNum}" />
+				</div>
 				<%-- 					<input type="hidden" name="pageNum" value="${pageMaker.pageNum}"/>
 						<input type="hidden" name="total" value="${pageMaker.total}"/> --%>
 
@@ -84,34 +93,44 @@
 
 
 
-	<div id="itemlist" class="prdlist_rollup">
-		<c:forEach var="item" items="${list}">
-			<li class="item">
-				<div class="box">
-					<div class="prdImg">
-						<a href=""> <img src="<c:url value='${item.mainImg}'/>"
-							class="Main Img">
-						</a>
-					</div>
-					<div class="prd_info_box" id="prd_info_boxs"
-						onclick="location.href='';">
-						<div class="name">
-							<a href=""> <font color="007cd8"><b>${item.itemName}</b></font>
-							</a>
-						</div>
-						<div class="list_info">
-							<ul>
-								<li class="cash"><class ="price" id="sale">${item.sale}원</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</li>
-		</c:forEach>
-	</div>
-</body>
-
-<!-- 페이징처리 -->
+    <div id="itemlist" class="prdlist_rollup">
+                <c:choose>
+        <c:when test="${empty list}">
+            <!-- 검색 결과가 없는 경우 -->
+            <script>
+                alert("검색 결과가 없습니다.");
+                window.history.back();
+            </script>
+        </c:when>
+        <c:otherwise>
+            <c:forEach var="item" items="${list}">
+                <li class="item">
+                    <div class="box">
+                        <div class="prdImg">
+                            <a href="">
+                                <img src="<c:url value='${item.mainImg}'/>" class="Main Img">
+                            </a>
+                        </div>
+                        <div class="prd_info_box" id="prd_info_boxs" onclick="location.href='';" >
+                            <div class="name">
+                                <a href="">
+                                    <font color="007cd8"><b>${item.itemName}</b></font>
+                                </a>
+                            </div>
+                            <div class="list_info">
+                                <ul>
+                                    <li class="cash text-center"><class="price" id="sale">${item.sale}원</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                 </c:forEach>
+              </c:otherwise>
+        </c:choose>
+            
+    </div>
+    <!-- 페이징처리 -->
 <div class="center">
 	<ul class="pagination justify-content-center">
 		<c:if test="${pageMaker.prev}">
@@ -136,4 +155,8 @@
 </div>
 
 <!-- /페이징처리 -->
+<jsp:include page="../footer.jsp"></jsp:include>   
+</body>
+
+
 </html>

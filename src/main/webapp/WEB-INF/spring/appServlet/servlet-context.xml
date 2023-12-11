@@ -24,7 +24,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.shard" />
+	<context:component-scan base-package="com.shard.controller" />
 	
 	<security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled"/>
 	

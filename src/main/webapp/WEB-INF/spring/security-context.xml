@@ -15,25 +15,26 @@
 
 		<security:intercept-url pattern="/shard/" access="permitAll" />
 		
-		
-		<security:intercept-url pattern="/order/cart" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
+		<security:intercept-url pattern="/shard/userCheck" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
+		<!-- <security:intercept-url pattern="/order/cart" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
 		<security:intercept-url pattern="/order/pay" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
-		<security:intercept-url pattern="/order/checkOut" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
+		<security:intercept-url pattern="/order/checkOut" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" /> -->
 
 		
 		<security:intercept-url pattern="/qna/insert" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
 		<security:intercept-url pattern="/qna/Reinsert" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
 		<security:intercept-url pattern="/qna/get" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
 		
-		<security:intercept-url pattern="/item/wishlist" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
 		
 		
 		
 		
-
-
-
-
+		
+		<security:intercept-url pattern="/item/insertQna" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
+		
+		
+		
+		
 
 
 

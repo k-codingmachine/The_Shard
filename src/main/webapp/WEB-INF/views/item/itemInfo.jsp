@@ -57,7 +57,6 @@
             },
             error : function(error) {
                console.error(error);
-               // 에러 발생 시 동작을 추가할 수 있습니다.
             }
          });
       }
@@ -104,14 +103,14 @@
                   <div class="button_set">
                      <a class="btn_cart">장바구니 담기</a> <a class="btn_buy">바로구매</a>
                      <sec:authorize access="!isAuthenticated()">
-                        <a href="#" class="ws_icon" onclick="gologin()" style="color:#fff;"> <span>
+                        <a href="#" class="ws_icon" onclick="gologin()" style="background-color:#fff;"> <span>
                               <i id="heartIcon" class="fa-solid fa-heart"
                               style="color: #fff;"></i>
                         </span>
                         </a>
                      </sec:authorize>
 						<sec:authorize access="isAuthenticated()">
-						    <a href="#" class="ws_icon" onclick="toggleWishlist()" style="${result == 1 ? 'color: red;' : 'color: #fff'}">
+						    <a href="#" class="ws_icon" onclick="toggleWishlist()" style="${result == 1 ? 'background-color: red;' : 'background-color: #fff'}">
 						        <span>
 						            <i id="heartIcon" class="fa-solid fa-heart"></i>
 						        </span>

@@ -147,4 +147,9 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.noticeCount();
 	}
 
+	@Override
+	public int statisticsCount(int orderId) {
+		return mapper.statisticsCount(orderId);
+	}
+
 }

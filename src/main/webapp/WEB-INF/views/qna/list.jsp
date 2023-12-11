@@ -31,18 +31,23 @@
 		} else if (file == "noImg") {
 			alert("파일의 확장자가 사진이 아닙니다.");
 		}
-		
+
 		var result = "${result}";
-		if(result == "adari"){
+		if (result == "adari") {
 			alert("당신은 문의를 등록한 사람이 아닙니다.");
-		}else if(result == "deleteSuccess"){
+		} else if (result == "deleteSuccess") {
 			alert("정상적으로 문의가 삭제되었습니다.");
 		}
 	</script>
 	<jsp:include page="../header.jsp" />
 
 	<div class="QnAlistWrap">
-		<h2>Q&A</h2>
+		<h2>
+			Q&A 
+			<br /> 
+			<a href="/shard/notice?pageNum=1" style="color: #333; font-size: 13px;">공지사항</a>
+		</h2>
+
 
 		<div class="writeBtn">
 			<a href="/qna/insert">글쓰기</a>
@@ -96,8 +101,8 @@
 									<td></td>
 									<td><i class="fa-solid fa-lock"></i></td>
 									<td></td>
-									<td style="padding-left: 30px;"><a href="${list.replyNum}" class="reply getReply"><span
-											class="replyComplete"><i
+									<td style="padding-left: 30px;"><a href="${list.replyNum}"
+										class="reply getReply"><span class="replyComplete"><i
 												class="fa-solid fa-arrow-turn-up"></i>답변완료</span> 답변드립니다.</a></td>
 									<td>관리자</td>
 									<td><fmt:formatDate value="${enswer.enswerRegDate}"

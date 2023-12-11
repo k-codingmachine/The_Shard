@@ -39,14 +39,64 @@
 
 .menu {border-left:1px solid #ddd; border-top:1px solid #ddd; box-sizing: border-box; overflow: hidden; width:1350px; margin:0 auto 60px;}
 
-.menu a {float: left; display: block;width: 33%;line-height: 55px;box-sizing: border-box; color: rgb(117, 117, 117); font-size: 20px; text-align: center;  font-family: "spoqa han sans", NanumSquare, "Apple Gothic", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", dotum, sans-serif; background-color: rgb(243, 243, 243); font-weight: bold; border-right: 1px solid rgb(221, 221, 221); border-bottom: 1px solid rgb(221, 221, 221); padding: 10px 0px; text-decoration: none;     transition: all .35s cubic-bezier(.25, .1, .11, .99);}
+.menu a {float: left; display: block;width: 33.3%;line-height: 55px;box-sizing: border-box; color: rgb(117, 117, 117); font-size: 20px; text-align: center;  font-family: "spoqa han sans", NanumSquare, "Apple Gothic", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", dotum, sans-serif; background-color: rgb(243, 243, 243); font-weight: bold; border-right: 1px solid rgb(221, 221, 221); border-bottom: 1px solid rgb(221, 221, 221); padding: 10px 0px; text-decoration: none;transition: all .35s cubic-bezier(.25, .1, .11, .99);}
+
+.menu a:first-child {background:#0e0e0e; color:#fff; border-right:#0e0e0e; border-left:#0e0e0e;}
 
 .menu a:hover {background:#0e0e0e; color:#fff; border-right:#0e0e0e; border-left:#0e0e0e;}
 
+/* 마이페이지 정보들 css */
+.content_box {position:relative; margin:0 auto; margin-bottom:100px;}
+
+.content_box_body {width:1350px; margin:0 auto;}
+
+/* 마이페이지 메인 주문정보 + 관심상품 */
+.orderTitle {font-size:34px; font-weight:900; letter-spacing: -1px; padding:10px 0; display: inline-block;}
+
+.orderTable {margin-top:5px; border:0;}
+.orderTable > table {border-top:2px solid #000; border-bottom:1px solid #e8e8e8; width:100%;}
+.orderTable > table > thead th {padding:30px 0; border-bottom:2px solid #cdcdcd; background-color:#fff; line-height:30px;}
+
+/* 위시리스트 */
+.wish_box {margin-top:80px;}
+.wish_box > h3 {font-size:34px; display: inline-block; font-weight: 900; letter-spacing: -1px; padding:10px 0;}
+
+
+
+/* 적립금 내역 */
+.possessionPoint {padding:40px 0; border-top:2px solid #000; border-bottom:2px solid #000; margin:10px 0 80px;}
+.possessionPoint > p {font-size:17px; font-weight:bold; text-align:center;}
+.possessionPoint > p > .pointPrice {padding-left:10px; color:#35559d; font-size:34px; font-weight:bold;}
+.possessionPoint > p > .pointTxt {font-size:34px; font-weight:bold; color:#000;}
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 회원탈퇴 */
+.del_member {text-align:right; width:1350px; margin:0 auto 40px;}
+.del_member > p {font-size:14px; display: inline-block; margin-right:10px; color:#aaa;}
+.del_member > a {display: inline-block; width:100px; height:35px; border:1px solid #e2e2e2; color:#8a8a8a; text-align:center; line-height:36px; font-size:14px;}
 
 
