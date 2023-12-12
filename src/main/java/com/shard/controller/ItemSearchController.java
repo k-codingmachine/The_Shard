@@ -33,6 +33,7 @@ public class ItemSearchController {
 			@RequestParam(name = "color", required = false) String color,
 			@RequestParam(name = "sortType", defaultValue = "") String sortType, Model model) {
 		System.out.println(sortType);
+		// color, item 검색
 		if (color != "" && itemName != "") {
 			if(sortType.equals("Latest")) {
 				SearchPageVO vo = new SearchPageVO(pageNum, service.getItemColorCount(itemName, color));
@@ -67,7 +68,7 @@ public class ItemSearchController {
 			}
 		}
 
-		// color가 null이 아닌 경우에만 검색 조건을 설정
+		// color 검색
 		else if (color != "") {
 			if(sortType.equals("Latest")) {
 				System.out.println("컬러 최신순 들어옴");
@@ -98,7 +99,7 @@ public class ItemSearchController {
 			model.addAttribute("color", color);
 			}
 		}
-		// itemName이 null이 아닌 경우에만 검색
+		// item 검색
 		else if (itemName != "") {
 			if(sortType.equals("Latest")) {
 				SearchPageVO vo = new SearchPageVO(pageNum, service.getItemNameCount(itemName));

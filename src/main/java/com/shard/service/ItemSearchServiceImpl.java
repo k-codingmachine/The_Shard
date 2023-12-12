@@ -1,13 +1,11 @@
 package com.shard.service;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shard.domain.ItemVO;
-import com.shard.domain.MainPageVO;
 import com.shard.domain.SearchPageVO;
 import com.shard.mapper.ItemSearchMapper;
 
