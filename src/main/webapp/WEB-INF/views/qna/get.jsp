@@ -55,7 +55,7 @@
 					<div class="reQ_box">
 						<div>${reply.replyContent}</div>
 
-						<c:if test="${reply.replyImg != null}">
+						<c:if test="${not empty reply.replyImg}">
 							<img src="${reply.replyImg}" alt="" />
 						</c:if>
 					</div>

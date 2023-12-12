@@ -22,7 +22,7 @@
 			<li><a href="/admin/item?pageNum=1&itemName=">제품 관리</a></li>
 			<li><a href="/admin/noEnswer?pageNum=1">문의 답변</a></li>
 			<li><a href="/shard/notice?pageNum=1">공지사항</a></li>
-			<li><a href="/admin/statistics">통계</a></li>
+			<li><a href="/admin/statistics?pageNum=1">통계</a></li>
 		</ul>
 	</div>
 

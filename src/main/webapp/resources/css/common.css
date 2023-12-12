@@ -8,7 +8,7 @@ font-family: 'Noto Sans KR', sans-serif;}
 	color:#fff;
 }
 
-a {text-decoration: none; color:#000;}
+a {text-decoration: none !important; color:#000;}
 
 ul,li,ol {list-style: none; margin:0; padding:0;}
 
@@ -32,7 +32,6 @@ input {accent-color: #8581d6;}
 .mainNav > ul li {margin-right:15px; position:relative; float:left;}
 .mainNav > ul li a {font-size:15px; color:#000; line-height:26px;}
 .mainNav > ul li a:hover {color:#8581d6;}
-.mainNav > ul li:nth-child(2):after {content:"N"; position:absolute; top:-10px; color:#8581d6; font-weight:bold; font-size:12px; right:-9px;}
 
 .division_line {margin:3px 2% 0;}
 .division_line > span {display:inline-block; width:1px; height:15px; background-color:#000;}

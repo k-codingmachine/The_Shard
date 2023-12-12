@@ -68,18 +68,18 @@
 			<ul class="pagination">
 				<c:if test="${page.prev}">
 					<li class="page-item"><a class="page-link"
-						href="/admin/user?pageNum=${page.startPage -1}">Previous</a></li>
+						href="/admin/noEnswer?pageNum=${page.startPage -1}">Previous</a></li>
 				</c:if>
 
 				<c:forEach var="pagging" begin="${page.startPage}"
 					end="${page.endPage}">
 					<li class="page-item ${page.pageNum == pagging ? 'active' : '' } "><a
-						class="page-link" href="/admin/user?pageNum=${pagging}">${pagging}</a></li>
+						class="page-link" href="/admin/noEnswer?pageNum=${pagging}">${pagging}</a></li>
 				</c:forEach>
 
 				<c:if test="${page.next}">
 					<li class="page-item"><a class="page-link"
-						href="/admin/user?pageNum=${page.endPage +1}">Next</a></li>
+						href="/admin/noEnswer?pageNum=${page.endPage +1}">Next</a></li>
 				</c:if>
 			</ul>
 		</div>

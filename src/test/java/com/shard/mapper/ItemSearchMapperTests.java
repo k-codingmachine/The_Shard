@@ -12,13 +12,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.shard.domain.ItemVO;
-import com.shard.domain.MainPageVO;
 import com.shard.domain.SearchPageVO;
 
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/security-context.xml"})
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class ItemSearchMapperTests {
 
@@ -35,11 +34,6 @@ public class ItemSearchMapperTests {
 	public void testGetSearchAllLatest(){
 		SearchPageVO vo = new SearchPageVO(1,mapper.getTotalCount());
 		mapper.getSearchAllLatest(vo).forEach(list -> log.info(list));
-	}
-	
-	@Test
-	public void testGetAllLatest(){
-		mapper.getAllLatest().forEach(list -> log.info(list));
 	}
 
 	@Test

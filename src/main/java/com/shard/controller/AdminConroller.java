@@ -15,12 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shard.domain.ItemVO;
-import com.shard.domain.MainPageVO;
 import com.shard.domain.NoticeVO;
 import com.shard.domain.PageVO;
-import com.shard.domain.SearchPageVO;
 import com.shard.service.AdminService;
-import com.shard.service.ItemSearchService;
 import com.shard.service.ItemService;
 
 import lombok.extern.log4j.Log4j;
@@ -36,8 +33,6 @@ public class AdminConroller {
 	@Autowired
 	private ItemService itemService;
 	
-	@Autowired
-	private ItemSearchService itemSearchService;
 
 	@GetMapping("/")
 	@PreAuthorize("isAuthenticated()")

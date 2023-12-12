@@ -90,38 +90,42 @@
 
 
 	<insert id="backCoupon">
-		insert into couponissuance(issueED, couponNum, email) values (CURRENT_DATE() + INTERVAL 30 DAY, 5, #{email})
+		insert into couponissuance(issueED, couponNum, email)
+		values (CURRENT_DATE() + INTERVAL 30 DAY, 5, #{email})
 	</insert>
 
 	<!-- 공지사항 SQL 구문 -->
 	<select id="getNotice" resultType="com.shard.domain.NoticeVO">
-		select * from notice where noticeNum = #{noticeNum}
+		select * from notice where
+		noticeNum = #{noticeNum}
 	</select>
-	
+
 	<select id="noticeList" resultType="com.shard.domain.NoticeVO">
-		select * from notice order by noticeNum desc limit #{start}, #{amount}
+		select * from notice order by
+		noticeNum desc limit #{start}, #{amount}
 	</select>
-	
+
 	<select id="noticeCount" resultType="int">
 		select count(*) from notice
 	</select>
-	
+
 	<insert id="insertNotice">
-		insert into notice(noticeTitle, noticeContent, noticeImg) values (#{noticeTitle}, #{noticeContent}, #{noticeImg})
+		insert into notice(noticeTitle, noticeContent,
+		noticeImg) values (#{noticeTitle}, #{noticeContent}, #{noticeImg})
 	</insert>
-	
+
 	<update id="updateNotice">
-		update notice set noticeTitle = #{noticeTitle}, noticeContent = #{noticeContent}, noticeImg = #{noticeImg}
+		update notice set noticeTitle = #{noticeTitle},
+		noticeContent = #{noticeContent}, noticeImg = #{noticeImg}
 	</update>
 
 	<delete id="deleteNotice">
 		delete from notice where noticeNum = #{noticeNum}
 	</delete>
-	
+
 	<select id="statisticsCount" resultType="int">
-	select count(*) from detailorder
-	where orderId = #{orderId}
+		select count(*) from detailorder
+		where orderId = #{orderId}
 	</select>
-	
 
 </mapper>

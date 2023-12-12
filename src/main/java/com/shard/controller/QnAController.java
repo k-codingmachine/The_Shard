@@ -92,7 +92,7 @@ public class QnAController {
 
 	@GetMapping("/get")
 	@PreAuthorize("isAuthenticated()")
-	public void get(@RequestParam("pageNum") int pageNum, @RequestParam("replyNum") int replyNum, Model model) {
+	public void get(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam("replyNum") int replyNum, Model model) {
 		model.addAttribute("reply", service.getQnAList(replyNum));
 		model.addAttribute("enswer", enswerService.enswerGetList(replyNum));
 		model.addAttribute("pageNum", pageNum);
@@ -103,18 +103,23 @@ public class QnAController {
 
 	@PostMapping("/insert")
 	public String insertQnA(QnAVO vo, @RequestParam("img") MultipartFile file, RedirectAttributes rttr) {
+		System.out.println(vo);
 		System.out.println(file);
-		int result = service.qnaInsert(vo, file);
+		if(file.getSize() == 0) {
+			service.qnaInsert(vo);
+		}else {
+			int result = service.qnaInsert(vo, file);
 
-		if (result == -1) { // 파일 크기가 5MB가 넘었을경우
-			rttr.addFlashAttribute("file", "up");
-		} else if (result == -2) { // 사진 파일이 아닐 경우
-			System.out.println("사진 파일 아님");
-			rttr.addFlashAttribute("file", "noImg");
-		} else if (result == -3) { // 파일 업로드 중 에러가 발생한 경우
-			System.out.println("사진업로드 중 에러 발생");
+			if (result == -1) { // 파일 크기가 5MB가 넘었을경우
+				rttr.addFlashAttribute("file", "up");
+			} else if (result == -2) { // 사진 파일이 아닐 경우
+				System.out.println("사진 파일 아님");
+				rttr.addFlashAttribute("file", "noImg");
+			} else if (result == -3) { // 파일 업로드 중 에러가 발생한 경우
+				System.out.println("사진업로드 중 에러 발생");
+			}
 		}
-
+		
 		return "redirect:/qna/list?pageNum=1";
 	}
 
@@ -136,7 +141,7 @@ public class QnAController {
 	public String enswer(QnAEnswerVO vo, Model model) {
 		enswerService.insertEnswer(vo);
 		enswerService.updateComplete(vo.getReplyNum());
-//		mailSendService.enwserEmail(vo.getEmail());
+		mailSendService.enwserEmail(vo.getEmail());
 		return "redirect:/qna/list?pageNum=1";
 	}
 	

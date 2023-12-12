@@ -1,5 +1,7 @@
 package com.shard.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.shard.domain.ItemVO;
@@ -25,4 +27,6 @@ public interface ItemMapper {
 	public void wishListInsert(@Param("itemNum") int itemNum, @Param("email") String email);
 
 	public void wishListDelete(@Param("itemNum") int itemNum, @Param("email") String email);
+	
+	public List<Integer> getWishListItemNum(String email);
 }

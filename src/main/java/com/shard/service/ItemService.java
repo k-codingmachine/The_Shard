@@ -23,4 +23,6 @@ public interface ItemService {
 	public void wishListInsert(int itemNum, String email);
 
 	public void wishListDelete(int itemNum, String email);
+	
+	public List<Integer> getWishListItemNum(String email);
 }

@@ -31,6 +31,11 @@ public class OrderServiceImpl implements OrderService{
 
 	@Autowired
 	private OrdersMapper mapper;
+
+	@Override
+	public ShardMemberVO getCustomer(String email) {
+		return mapper.getCustomer(email);
+	}
 	
 	@Override
 	public List<Integer> getDetailOrder(int orderId) {
@@ -150,21 +155,31 @@ public class OrderServiceImpl implements OrderService{
 	}
 	
 	//결제완료(주문완료 후)
-	@Transactional
 	@Override
-	public void orderComplete(OrdersVO ovo, DetailOrderVO dvo, 
-							int cartNum, List<Integer> itemNum,
-							int orderId, int usePoint, String email, int issueNum) {
+	public int orderComplete(OrdersVO ovo, int cartNum, 
+							List<Integer> itemNum, String email) {
 		mapper.orderInsert(ovo);
+		log.info("오더완");
 		int result = mapper.getLastInsertId();
-		
-		mapper.detailOrderInsert(dvo, result);
+		log.info(result);
 		//주문한 아이템 장바구니에서 삭제
 		mapper.cartDelete(cartNum, itemNum);
+		
+		return result;
+	}
+	@Override
+	public void orderComplete2(DetailOrderVO dovo,int orderId) {
+		mapper.detailOrderInsert(dovo, orderId);
+		
+	}
+	
+	@Override
+	public void orderComplete3(int orderId, int issueNum, int usePoint) {
 		//쿠폰에 orderId추가(사용한 쿠폰)
 		mapper.useCouponIssuanceUpdate(orderId, issueNum);
 		//고객 포인트 차감
 		mapper.ordersUpdate(usePoint, orderId);
+		
 	}
 
 	//주문취소
@@ -244,6 +259,21 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public int couponCount(String email) {
 		return mapper.couponCount(email);
+	}
+
+	@Override
+	public List<CouponVO> couponList() {
+		return mapper.couponList();
+	}
+
+	@Override
+	public List<DeliverAddrVO> getUserAddress(String email) {
+		return mapper.getUserAddress(email);
+	}
+
+	@Override
+	public int cartItemCount(String email) {
+		return mapper.cartItemCount(email);
 	}
 	
 	

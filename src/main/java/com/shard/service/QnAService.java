@@ -25,4 +25,9 @@ public interface QnAService {
 	public int getReplyCheck(int replyNum, String replyPwd);
 	
 	public QnAVO getQnA(int replyNum);
+	
+	// 마이페이지 들어갈 자신의 게시글
+	public List<QnAVO> myPageQnAList(String email);
+	
+	public int myPageQnACount(String email);
 }

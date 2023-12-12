@@ -16,7 +16,7 @@
 <h1 class="adminstatisticstitle">판매 통계</h1>
     <div class="star-bot-right">
         <div>
-            <ul>
+            <ul class="rank">
                 <li><em>10대</em> <span class="star-bot-right-bar" style="height: 70%; background-color: rgb(202, 53, 199);"> <em>${t1}</em></span></li>
                 <li><em>20대</em> <span class="star-bot-right-bar" style="height: 60%;"> <em >${t2}</em></span></li>
                 <li><em>30대</em> <span class="star-bot-right-bar" style="height: 90%; background-color: rgb(102, 204, 153);"><em>${t3}</em></span></li>

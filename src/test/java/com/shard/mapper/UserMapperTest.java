@@ -1,6 +1,5 @@
 package com.shard.mapper;
 
-import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,11 +34,11 @@ public class UserMapperTest {
 
 	@Test
 	public void update() {
-		String pwd = encoder.encode("user");
+		String pwd = encoder.encode("faker123!@");
 		ShardMemberVO vo = ShardMemberVO.builder()
-							.userName("김아름")
+							.userName("이름름")
 							.userPwd(pwd)
-							.email("user51@user.com")
+							.email("user1@user.com")
 							.build();
 		mapper.updateUser(vo);
 	}

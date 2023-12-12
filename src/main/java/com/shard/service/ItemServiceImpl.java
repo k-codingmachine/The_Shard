@@ -199,4 +199,9 @@ public class ItemServiceImpl implements ItemService {
 	public void wishListDelete(int itemNum, String email) {
 		mapper.wishListDelete(itemNum, email);
 	}
+
+	@Override
+	public List<Integer> getWishListItemNum(String email) {
+		return mapper.getWishListItemNum(email);
+	}
 }

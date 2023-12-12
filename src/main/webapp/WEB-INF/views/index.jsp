@@ -1,20 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>The shard</title>
 <link rel="stylesheet" href="/resources/css/common.css" />
+<link rel="stylesheet" href="/resources/css/index.css" />
 <link rel="stylesheet" href="/resources/css/home.css" />
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.min.js"></script>
-<script type="text/javascript"
-	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-</head>
+<link
+	href="https://cdn.jsdelivr.net/npm/swiper@11.0.5/swiper-bundle.min.css"
+	rel="stylesheet"></link>
 <body>
 	<script type="text/javascript">
 		var result = "${result}";
@@ -23,8 +21,77 @@
 		}
 	</script>
 
-
 	<jsp:include page="header.jsp"></jsp:include>
+
+	<div class="container">
+		<div
+			class="swiper-container swiper-container-initialized swiper-container-horizontal">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<a href=""><img src="/resources/index/main_new_00.png" alt="" /></a>
+					<div class="slide_txt_box">
+						<a href=""> <span>힙하다</span>
+							<p>세렌디 파티</p>
+						</a>
+
+						<div class="tag_box">
+							<a href="">#NEW</a> <a href="">#23FW</a> <a href="">#4color</a>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<a href=""><img src="/resources/index/main_new_01.png" alt="" /></a>
+					<div class="slide_txt_box">
+						<a href=""> <span>남다른 디테일의 신상!</span>
+							<p>떠프라 쓰고 완벽이라 읽다.</p>
+						</a>
+
+						<div class="tag_box">
+							<a href="">#BEST</a> <a href="">#4color</a>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<a href=""><img src="/resources/index/main_new_02.png" alt="" /></a>
+					<div class="slide_txt_box">
+						<a href=""> <span>따뜻한 코듀로이 팬츠 하나면</span>
+							<p>캠핑 끄떡 없어요</p>
+						</a>
+
+						<div class="tag_box">
+							<a href="">#BEST</a> <a href="">#6color</a>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<a href=""><img src="/resources/index/main_new_03.png" alt="" /></a>
+					<div class="slide_txt_box">
+						<a href=""> <span>TheShard프로젝트 23FW추천템</span>
+							<p>런던~ 디프런~</p>
+						</a>
+
+						<div class="tag_box">
+							<a href="">#NEW</a> <a href="">#23FW</a> <a href="">#4color</a>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<a href=""><img src="/resources/index/main_new_04.png" alt="" /></a>
+					<div class="slide_txt_box">
+						<a href=""> <span>이런 색상 흔치 않지~</span>
+							<p>호킨스 버건디 추가</p>
+						</a>
+
+						<div class="tag_box">
+							<a href="">#NEW</a> <a href="">#23FW</a> <a href="">#4color</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+	</div>
+	
 	<div class="title">
 		<h2>Category</h2>
 	</div>
@@ -111,12 +178,12 @@
 		</c:forEach>
 	</div>
 
+	<script
+		src="https://cdn.jsdelivr.net/npm/swiper@11.0.5/swiper-bundle.min.js"></script>
 
-
-
-
-
+	<script type="text/javascript" src="/resources/js/index.js"></script>
 
 	<jsp:include page="footer.jsp"></jsp:include>
+
 </body>
 </html>

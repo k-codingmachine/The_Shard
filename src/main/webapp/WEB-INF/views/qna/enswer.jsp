@@ -31,6 +31,7 @@
 					value="${_csrf.token}" />
 				<input type="hidden" name="replyNum" value="${reply.replyNum}" />
 				<input type="hidden" name="inquiryNum" value="${reply.inquiryNum}" />
+				<input type="hidden" name="email" value="${reply.email}" />
 				<table>
 					<tbody>
 						<tr>

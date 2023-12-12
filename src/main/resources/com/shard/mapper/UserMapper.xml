@@ -22,15 +22,14 @@
 	</insert>
 
 	<insert id="insertKakaoUser">
-		insert into customer(email, username, phone, dob,
-		gender) values (#{email}, #{username}, #{phone}, #{dob}, #{gender})
+		insert into customer(email, userName, phone, dob,
+		gender) values (#{email}, #{userName}, #{phone}, #{dob}, #{gender})
 	</insert>
 
 	<update id="updateUser">
-		update customer set userpwd =
-		#{userpwd},userName =
-		#{userName},email = #{email}, phone = #{phone}, GENDER = #{GENDER},dob
-		= #{dob} where email = #{email}
+		update customer set userPwd =
+		#{userPwd},userName =
+		#{userName}, phone = #{phone} where email = #{email}
 	</update>
 
 	<delete id="deleteUser">
@@ -74,6 +73,9 @@
 			)
 		</foreach>
 	</insert>
-
+	
+	<update id="updatePwd">
+		update customer set userPwd = #{pwd} where email = #{email}
+	</update>
 
 </mapper>

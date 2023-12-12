@@ -32,10 +32,12 @@
 	color: #007cd8; /* 가격 색상 */
 }
 
-#sort > ul > li {
-  margin: 16px;
-  display: inline-block;
+.nav > ul>li {
+	margin: 16px;
+	display: inline-block;
 }
+
+.nav > ul>li a {text-decoration: underline;}
 
 #itemlist {
 	list-style-type: none;

@@ -1,4 +1,3 @@
-<%@page import="com.shard.domain.ShardMemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -46,7 +45,7 @@
 					<c:choose>
 						<c:when test="${not empty token}">
 							<li><a
-								href="https://kauth.kakao.com/oauth/logout?client_id=4f8fd0ea2b58d54fc209c75db615c0e7&logout_redirect_uri=http://localhost:8181/shard/kakaoLogout">로그아웃</a></li>
+								href="https://kauth.kakao.com/oauth/logout?client_id=4f8fd0ea2b58d54fc209c75db615c0e7&logout_redirect_uri=http://localhost:8181/itemSearch/kakaoLogout">로그아웃</a></li>
 						</c:when>
 						<c:otherwise>
 							<li><a href="#" class="logoutBtn">로그아웃</a></li>
@@ -83,21 +82,18 @@
 			src="/resources/logo.png" alt="로고 사진" />
 		</a>
 		<ul>
-			<li><a href="/shard/category/best">BEST</a></li>
-			<li><a href="/shard/category/best">NEW</a></li>
-			<li class="division_line"><span></span></li>
-			<li><a href="/shard/category/2">HoodZipup</a></li>
-			<li><a href="/shard/category/11">Mtm</a></li>
-			<li><a href="/shard/category/1">Hood</a></li>
-			<li><a href="/shard/category/8">Cotton</a></li>
-			<li><a href="/shard/category/6">Denim</a></li>
-			<li><a href="/shard/category/4">Shirts</a></li>
-			<li><a href="/shard/category/acc">Acc</a></li>
+			<li><a href="/itemSearch/list/category/2">HoodZipup</a></li>
+			<li><a href="/itemSearch/list/category/11">Mtm</a></li>
+			<li><a href="/itemSearch/list/category/1">Hood</a></li>
+			<li><a href="/itemSearch/list/category/8">Cotton</a></li>
+			<li><a href="/itemSearch/list/category/6">Denim</a></li>
+			<li><a href="/itemSearch/list/category/4">Shirts</a></li>
+			<li><a href="/itemSearch/list/category/9">Acc</a></li>
 		</ul>
 
 		<form action="/itemSearch/list" method="get">
-			<input type="text" class="search" name="itemName" value=""/>
-			<input type="hidden" name="color" value=""/>
+			<input type="text" class="search" name="itemName" value="" /> <input
+				type="hidden" name="color" value="" />
 			<button type="submit" class="searchBtn">
 				<i class="fa-solid fa-magnifying-glass" id="glass"></i>
 			</button>
@@ -105,10 +101,16 @@
 	</div>
 
 
-
 	<div class="Cartbtn">
 		<a href="/order/cart"> <img src="/resources/shopping-bag.svg" />
-			<span>0</span>
+			<c:choose>
+				<c:when test="${not empty cartItemCount}">
+					<span>${cartItemCount}</span>
+				</c:when>
+				<c:otherwise>
+					<span>0</span>
+				</c:otherwise>
+			</c:choose>
 		</a>
 	</div>
 </div>

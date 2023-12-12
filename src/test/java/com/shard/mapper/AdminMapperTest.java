@@ -12,7 +12,7 @@ import com.shard.domain.PageVO;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/*.xml"})
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class AdminMapperTest {
 
@@ -50,13 +50,5 @@ public class AdminMapperTest {
 	public void insertNotice() {
 		
 	}
-	
-	@Test
-	public void testStatisticsCount() {
-		int orderId = 100;
-		mapper.statisticsCount(orderId);
-	}
-	
-	
 	
 }

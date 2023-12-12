@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <title>상품검색</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/resources/css/common.css" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/itemlist.css">
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/common.css">
-<script type="text/javascript" src="/resources/js/itemSearch.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script
@@ -22,9 +22,20 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <meta charset="UTF-8">
 <title>상품 목록</title>
+<script type="text/javascript">
+	$(function(){
+		var color = "${color}";
+		
+		$('#color option').each(function(){
+			if($(this).val() == color){
+				$(this).prop("selected", true);
+			}
+		});
+	});
+</script>
 </head>
 <body>
-<jsp:include page="../header.jsp"></jsp:include>
+	<jsp:include page="../header.jsp" />
 
 	<!-- 검색조건 처리 -->
 	<div id="search" class="row">
@@ -107,14 +118,14 @@
 					<li class="item">
 						<div class="box">
 							<div class="prdImg">
-								<a href=""> <img src="<c:url value='${item.mainImg}'/>"
+								<a href="/item/itemInfo?itemNum=${item.itemNum}&pageNum=1"> <img src="<c:url value='${item.mainImg}'/>"
 									class="Main Img">
 								</a>
 							</div>
 							<div class="prd_info_box" id="prd_info_boxs"
 								onclick="location.href='';">
 								<div class="name">
-									<a href=""> <font color="007cd8"><b>${item.itemName}</b></font>
+									<a href=""> <font><b>${item.itemName}</b></font>
 									</a>
 								</div>
 								<div class="list_info">
@@ -154,8 +165,8 @@
 	</div>
 	<!-- /페이징처리 -->
 
+	<jsp:include page="../footer.jsp" />
 
-<jsp:include page="../footer.jsp"></jsp:include>
 </body>
 
 

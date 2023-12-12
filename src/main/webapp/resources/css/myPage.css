@@ -50,17 +50,26 @@
 
 .content_box_body {width:1350px; margin:0 auto;}
 
-/* 마이페이지 메인 주문정보 + 관심상품 */
+/* 마이페이지 메인 */
 .orderTitle {font-size:34px; font-weight:900; letter-spacing: -1px; padding:10px 0; display: inline-block;}
 
 .orderTable {margin-top:5px; border:0;}
-.orderTable > table {border-top:2px solid #000; border-bottom:1px solid #e8e8e8; width:100%;}
+.orderTable > table {border-top:2px solid #000; border-bottom:1px solid #e8e8e8; width:100%; border-spacing: 0; border-collapse: collapse;}
 .orderTable > table > thead th {padding:30px 0; border-bottom:2px solid #cdcdcd; background-color:#fff; line-height:30px;}
+.orderTable > table > tbody td {color:#000; line-height:1.8; padding:26px 0; border-bottom:1px solid #e8e8e8; height:32px; text-align:center;}
 
 /* 위시리스트 */
 .wish_box {margin-top:80px;}
 .wish_box > h3 {font-size:34px; display: inline-block; font-weight: 900; letter-spacing: -1px; padding:10px 0;}
 
+.wishlist {zoom:1; overflow: hidden; padding:5px 0 0 0; border-top:2px solid #000; margin-top:5px;}
+.wishlist li {float:left; width:190px; height:310px; font-weight:1.25; margin-top:20px; margin-left:30px;}
+.wishlist li p {font-family: "돋움",dotum,sans-serif;}
+
+.wishlist li img {width:187.5px; height:187.5px;}
+
+.itemName {overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin-top:12px; color:#333; font-weight:500;}
+.itemSale {color:#333; font-weight:bold;}
 
 
 /* 적립금 내역 */
@@ -70,8 +79,9 @@
 .possessionPoint > p > .pointTxt {font-size:34px; font-weight:bold; color:#000;}
 
 
-
-
+/* 내 게시글 */
+.myPageQnA {font-weight:bold; font-size:17px;}
+.myPageQnA > span {margin: 0 0 15px 15px; font-weight:normal;}
 
 
 

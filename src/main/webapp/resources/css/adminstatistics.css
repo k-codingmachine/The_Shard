@@ -37,6 +37,8 @@
     content: '';
 }
 
+.rank {display:flex; justify-content: center;}
+
 .star-bot-right > div:before {
     top: 24px;
 }

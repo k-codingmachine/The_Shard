@@ -25,5 +25,5 @@ public class CouponIssuanceVO {
 
 	private String email;
 
-	private int orderId;
+	private Integer orderId;
 }

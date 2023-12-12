@@ -1,12 +1,10 @@
 package com.shard.service;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.shard.domain.ItemVO;
-import com.shard.domain.MainPageVO;
 import com.shard.domain.SearchPageVO;
 
 public interface ItemSearchService {

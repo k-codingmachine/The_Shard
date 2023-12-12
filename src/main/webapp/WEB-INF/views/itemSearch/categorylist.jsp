@@ -8,10 +8,9 @@
 <title>category</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/resources/css/common.css" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/categorylist.css">
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/common.css">
 <script type="text/javascript" src="/resources/js/itemSearch.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -25,7 +24,7 @@
 <title>상품 목록</title>
 </head>
 <body>
-<jsp:include page="../header.jsp"></jsp:include>
+	<jsp:include page="../header.jsp" />
 
 	<!-- 검색조건 처리 -->
 	<div id="search" class="row">
@@ -114,7 +113,7 @@
                         <div class="prd_info_box" id="prd_info_boxs" onclick="location.href='';" >
                             <div class="name">
                                 <a href="">
-                                    <font color="007cd8"><b>${item.itemName}</b></font>
+                                    <font><b>${item.itemName}</b></font>
                                 </a>
                             </div>
                             <div class="list_info">
@@ -155,7 +154,8 @@
 </div>
 
 <!-- /페이징처리 -->
-<jsp:include page="../footer.jsp"></jsp:include>
+
+<jsp:include page="../footer.jsp" />
     
 </body>
 

@@ -1,6 +1,7 @@
 package com.shard.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -22,22 +23,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shard.domain.DeliverAddrVO;
+import com.shard.domain.ItemVO;
 import com.shard.domain.PageVO;
-import com.shard.domain.SearchPageVO;
 import com.shard.domain.ShardMemberVO;
-import com.shard.mapper.MemberMapper;
 import com.shard.service.AdminService;
 import com.shard.service.ItemSearchService;
+import com.shard.service.ItemService;
 import com.shard.service.MailSendService;
 import com.shard.service.OrderService;
+import com.shard.service.QnAService;
 import com.shard.service.SosialLoginService;
 import com.shard.service.UserService;
 
@@ -62,6 +62,10 @@ public class UserController {
 	
 	private final OrderService orderService;
 	
+	private final ItemService itemService;
+	
+	private final QnAService qnAService;
+	
 	private final ItemSearchService searchService;
 
 	@GetMapping("/deliverMap")
@@ -72,8 +76,17 @@ public class UserController {
 	// 메인 페이지로 이동 // 카카로 로그아웃 이후에도 여기로 이동
 	@GetMapping("")
 	public String index(Model model) {
-		model.addAttribute("list", searchService.AllMainLatest());
-		return "index";
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String email = authentication.getName();
+		log.info("index");
+		if(email.equals("anonymousUser")) {
+			model.addAttribute("list", searchService.AllMainLatest());
+			return "index";
+		}else {
+			model.addAttribute("cartItemCount", orderService.cartItemCount(email));
+			model.addAttribute("list", searchService.AllMainLatest());
+			return "index";
+		}
 	}
 
 	// 로그인 페이지로 이동
@@ -186,7 +199,7 @@ public class UserController {
 	@PostMapping("/join")
 	public String join(ShardMemberVO vo, RedirectAttributes rttr, @RequestParam("birthYear") int year,
 			@RequestParam("birthMonth") int month, @RequestParam("birthDay") int day, DeliverAddrVO addrVO) {
-		Timestamp dob = Timestamp.valueOf(year + "-" + month + "-" + day + " 0000:00:00");
+		Timestamp dob = Timestamp.valueOf(year + "-" + month + "-" + day + " 00:00:00");
 		vo.setDob(dob);
 		vo.setUserPwd(passwordEncoder.encode(vo.getUserPwd()));
 		int result = userservice.insertUser(vo);
@@ -260,8 +273,34 @@ public class UserController {
 	@PreAuthorize("isAuthenticated()")
 	public String mypage(Model model, @RequestParam String email) {
 		model.addAttribute("user", userservice.getUser(email)); // 회원 정보
-//		model.addAttribute("coupon", orderService.getCouponIssuance(email)); // 가지고 있는 쿠폰?이겠지?
-//		model.addAttribute("couponCount", orderService.couponCount(email)); // 가지고 있는 쿠폰의 갯수
+		
+		// 쿠폰 정보
+		model.addAttribute("coupon", orderService.getCouponIssuance(email)); // 가지고 있는 쿠폰?이겠지?
+		model.addAttribute("couponCount", orderService.couponCount(email)); // 가지고 있는 쿠폰의 갯수
+		model.addAttribute("couponVO", orderService.couponList()); // 쿠폰의 정보
+		
+		// 위시리스트 정보 => 관심상품
+		List<Integer> itemNum = itemService.getWishListItemNum(email);
+		List<ItemVO> itemList = new ArrayList<ItemVO>();
+		for(Integer vo : itemNum) {
+			ItemVO item = itemService.getItem(vo);
+			itemList.add(item);
+		}
+		model.addAttribute("itemList", itemList);
+		
+		// 고객이 작성한 게시글
+		model.addAttribute("qna", qnAService.myPageQnAList(email));
+		model.addAttribute("qnaCount", qnAService.myPageQnACount(email));
+		
+		//고객의 배송지
+		model.addAttribute("address", orderService.getUserAddress(email));
+		
+		// 고객의 주문정보
+		
+		// 고객의 적립금내역
+		
+		// 고객의 장바구니에 있는 itemCount
+		model.addAttribute("cartItemCount", orderService.cartItemCount(email));
 		return "user/myPage";
 	}
 	

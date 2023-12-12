@@ -57,19 +57,18 @@ public class MailSendService {
 		return Integer.toString(authNumber);
 	}
 	
-//	public void enwserEmail(String email) {
-//		makeRandomNumber();
-//		String setFrom = ".com"; // email-config에 설정한 자신의 이메일 주소를 입력 
-//		String toMail = email;
-//		String title = "문의 답변 완료 메세지입니다."; // 이메일 제목 
-//		String content = 
-//				"등록하신 문의를 살펴보았습니다." + 	//html 형식으로 작성 ! 
-//						"<br><br>" + 
-//						"지금 답변을 확인하실 수 있습니다." + 
-//						"<br>" + 
-//						"앞으로 더 나은 서비스를 위해 노력하겠습니다"; //이메일 내용 삽입
-//		mailSend(setFrom, toMail, title, content);
-//	}
+	public void enwserEmail(String email) {
+		String setFrom = ".com"; // email-config에 설정한 자신의 이메일 주소를 입력 
+		String toMail = email;
+		String title = "문의 답변 완료 메세지입니다."; // 이메일 제목 
+		String content = 
+				"등록하신 문의에 답변이 등록되었습니다." + 	//html 형식으로 작성 ! 
+						"<br><br>" + 
+						"지금 답변을 확인하실 수 있습니다." + 
+						"<br>" + 
+						"앞으로 더 나은 서비스를 위해 노력하겠습니다"; //이메일 내용 삽입
+		mailSend(setFrom, toMail, title, content);
+	}
 	
 	//이메일 전송 메소드
 	public void mailSend(String setFrom, String toMail, String title, String content) { 
