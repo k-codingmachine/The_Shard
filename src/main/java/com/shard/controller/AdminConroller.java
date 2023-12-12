@@ -196,7 +196,7 @@ public class AdminConroller {
 		int t2 = service.statisticsCount(100);
 		int t3 = service.statisticsCount(64);
 		int t4 = service.statisticsCount(4);
-		
+		// 통계 카운트용
 		model.addAttribute("t1", t1);
 		model.addAttribute("t2", t2);
 		model.addAttribute("t3", t3);

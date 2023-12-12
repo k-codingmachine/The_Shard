@@ -13,7 +13,7 @@ public interface ItemSearchMapper {
 
 	public List<ItemVO> getSearchAll(SearchPageVO vo);
 	public List<ItemVO> getSearchAllLatest(SearchPageVO vo);
-	public List<ItemVO> getAllLatest(MainPageVO vo); //메인페이지용
+	public List<ItemVO> getAllLatest(); //메인페이지용
 	public List<ItemVO> getRPrice(SearchPageVO vo);
 	public List<ItemVO> getHPrice(SearchPageVO vo);
 	public List<ItemVO> getCategoryHPrice(@Param("categoryNum") int categoryNum, @Param("vo") SearchPageVO vo);

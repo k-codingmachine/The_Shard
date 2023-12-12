@@ -39,8 +39,7 @@ public class ItemSearchMapperTests {
 	
 	@Test
 	public void testGetAllLatest(){
-		MainPageVO vo = new MainPageVO(1,16);
-		mapper.getAllLatest(vo).forEach(list -> log.info(list));
+		mapper.getAllLatest().forEach(list -> log.info(list));
 	}
 
 	@Test

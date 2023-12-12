@@ -13,7 +13,7 @@ public interface ItemSearchService {
 
 	public List<ItemVO> Search(SearchPageVO SearchPageVO);
 	public List<ItemVO> AllLatest(SearchPageVO vo);
-	public List<ItemVO> AllMainLatest(MainPageVO vo); //메인페이지용
+	public List<ItemVO> AllMainLatest(); //메인페이지용
 	public List<ItemVO> RPrice(SearchPageVO vo);
 	public List<ItemVO> HPrice(SearchPageVO vo);
 	public List<ItemVO> getCategoryHPrice(int categoryNum, SearchPageVO vo);

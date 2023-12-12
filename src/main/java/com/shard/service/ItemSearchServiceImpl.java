@@ -28,8 +28,8 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	}
 	
 	@Override
-	public List<ItemVO> AllMainLatest(MainPageVO vo) {
-		return mapper.getAllLatest(vo);
+	public List<ItemVO> AllMainLatest() {
+		return mapper.getAllLatest();
 	}
 
 

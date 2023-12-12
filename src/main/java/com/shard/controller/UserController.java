@@ -72,8 +72,7 @@ public class UserController {
 	// 메인 페이지로 이동 // 카카로 로그아웃 이후에도 여기로 이동
 	@GetMapping("")
 	public String index(Model model) {
-		SearchPageVO vo = new SearchPageVO(1, 20);
-		model.addAttribute("list", searchService.AllLatest(vo));
+		model.addAttribute("list", searchService.AllMainLatest());
 		return "index";
 	}
 
