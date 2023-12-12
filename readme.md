@@ -1,2 +1,3 @@
-###상품 조회 기능### <br>
-내가 만든 기능
+###The_Shard(Shopping mall project)### <br>
+병합하는 중
+
