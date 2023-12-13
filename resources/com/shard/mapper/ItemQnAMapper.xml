@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shard.mapper.ItemQnAMapper">
+	
+<!-- 고객이 상품 문의, 문의 수정, 문의 삭제 -->
+
+    
+
+	<insert id ="insertItemQuestion">
+		insert into ITEMQNA
+			(itemQTitle, itemQContent, itemQComplete, itemNum, email)
+			values
+			(#{itemQTitle}, #{itemQContent}, #{itemQComplete}, #{itemNum}, #{email});
+	</insert>
+
+	<!-- <select id="readItemQuestion" resultType="com.shard.domain.ItemQnAVO">
+        SELECT * FROM ITEMQNA WHERE itemNum = #{itemNum}
+    </select> -->
+    
+	<update id ="updateItemQuestion">
+		update ITEMQNA 
+		set
+			itemQTitle = #{itemQTitle}, itemQContent = #{itemQContent}, itemQComplete = #{itemQComplete},  itemNum = #{itemNum}, email = #{email}
+		where 
+			email = #{email} 
+			AND itemQNum = #{itemQNum}
+	</update>
+
+	<delete id = "deleteItemQuestion">
+		delete from ITEMQNA 
+		where 
+			itemQNum = #{itemQNum}
+	</delete>
+
+
+	<!--  관리자  -->
+	<!-- <select id="getQnAReplyList" resultType="com.shard.domain.ItemQnAReplyVO">
+        SELECT * FROM ITEMQNAREPLY WHERE itemQNum = #{itemQNum};
+    </select>
+    
+    
+	<insert id ="insertItemQnAReply">
+		insert into ITEMQNAREPLY
+			(itemQNum, itemAnsContent, email) values (#{itemQNum}, #{itemAnsContent}, #{email});
+	</insert>
+
+	<update id ="updateItemQnAReply">
+		update ITEMQNAREPLY 
+		set
+			itemAnsContent = #{itemAnsContent}, itemQComplete = #{itemQComplete},  itemNum = #{itemNum}, email = #{email}
+		where 
+			email = #{email} 
+			AND itemQNum = #{itemQNum}
+	</update>
+
+	<delete id = "deleteItemQnAReply">
+		delete from ITEMQNAREPLY 
+		where itemQnaRNum = #{itemQNum}
+	</delete> -->
+	
+	
+
+</mapper>
