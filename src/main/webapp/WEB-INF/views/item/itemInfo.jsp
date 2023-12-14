@@ -127,7 +127,7 @@
 		</table>
 	</div>
 	<!-- itemDetailWrap -->
-
+	<!-- 위시리스트에 상품이 담겨있는지 확인하는 ajax -->
 	<script type="text/javascript">
 		$(function() {
 			var email = $("#email").val();
