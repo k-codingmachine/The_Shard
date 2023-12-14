@@ -31,6 +31,7 @@
 
 </head>
 <body>
+<!-- ajax 사용시 필수 -->
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script>
 		function toggleWishlist() {
