@@ -65,7 +65,7 @@
 		}
 	</script>
 	<jsp:include page="../header.jsp" />
-<!-- ajax 사용시 필수 -->
+<!-- 회원의 이메일정보 가져오기 -->
 	<sec:authorize access="isAuthenticated()">
 		<input type="hidden" name="email" id="email"
 			value='<sec:authentication property="principal.member.email"/>' />
