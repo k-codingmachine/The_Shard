@@ -31,9 +31,9 @@
 
 </head>
 <body>
-<!-- ajax 사용시 필수 -->
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script>
+<!-- 위시리스트 추가 삭제 ajax -->
 		function toggleWishlist() {
 			var email = $("#email").val();
 			var itemNum = "${itemInfo.itemNum}";
