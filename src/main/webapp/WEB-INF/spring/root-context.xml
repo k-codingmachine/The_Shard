@@ -17,7 +17,7 @@
 	<!-- 히카리 커넥션 DB 설정 -->
    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
       <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
-      <property name="jdbcUrl" value="jdbc:log4jdbc:mysql://192.168.0.47:3306/project?useSSL=false&amp;serverTimezone=UTC" />
+      <property name="jdbcUrl" value="jdbc:log4jdbc:mysql://192.168.0.47:3306/project?useSSL=false&amp;serverTimezone=UTC" /><!-- 사용자에 따라 localhost및 ip주소로 설정 -->
       <property name="username" value="project" />
       <property name="password" value="project" />
    </bean>
