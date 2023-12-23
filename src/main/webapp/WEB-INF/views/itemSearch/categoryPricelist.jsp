@@ -24,7 +24,6 @@
 <title>상품 목록</title>
 </head>
 <body>
-
 	<jsp:include page="../header.jsp" />
 	<!-- 검색조건 처리 -->
 	<div id="search" class="row">
