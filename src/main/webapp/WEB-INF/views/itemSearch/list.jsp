@@ -35,6 +35,7 @@
 </script>
 </head>
 <body>
+
 	<jsp:include page="../header.jsp" />
 
 	<!-- 검색조건 처리 -->
